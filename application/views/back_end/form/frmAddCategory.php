@@ -9,6 +9,8 @@ $CI = &get_instance();
 	<script type="text/javascript" src="<?php echo base_url() ?>jqplugin/jquery_validation/jquery.validate.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var required_messager="Vui lòng không bỏ trống dòng này";
+			var digits_messager="Vui lòng chỉ điền số";
 			$('#form-add-category').validate({
 				rules : {
 					txtCategory : {
@@ -17,10 +19,14 @@ $CI = &get_instance();
 						maxlength:100
 					},
 					txtIndexMenu : {
-						required:true
+						required:true,
+						digits:true,
+						range:[1,100]
 					},
 					txtLevel:{
-						required:true
+						required:true,
+						digits:true,
+						range:[1,10]
 					},
 					txtDesc:{
 						required:true
@@ -28,17 +34,28 @@ $CI = &get_instance();
 				},
 				messages : {
 					txtCategory : {
-					  required:"Vui lòng không bỏ trống trường này",
-					  minlength:"Giá trị không nhỏ hơn 3"
+					  required:required_messager,
+					  minlength:"Độ dài kí tự phải lớn hơn 3 và nhỏ hơn 100",
+					  maxlength:"Độ dài kí tự phải lớn hơn 3 và nhỏ hơn 100"
 					},
 					txtIndexMenu:{
-				      required:"Vui lòng không bỏ trống trường này"
+				      required:required_messager,
+				      digits:digits_messager,
+				      range:"Chỉ nhập giá trị từ 1 tới 100"
 					},
-					
-				},
+					txtLevel:{
+					  required:required_messager,
+					  digits:digits_messager,
+					  range:"Chỉ từ 1 tới 10"
+					},
+					txtDesc:{
+					  required:required_messager
+					}
+			    },
 				errorClass : "help-inline",
 				errorElement : "span",
 				highlight : function(element, errorClass, validClass) {
+					$(element).parents('.control-group').removeClass('success');
 					$(element).parents('.control-group').addClass('error');
 				},
 				unhighlight : function(element, errorClass, validClass) {
@@ -80,9 +97,9 @@ $CI = &get_instance();
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" name="txtTargetParent" for="txtTargetParent">Chuyên mục cha</label>
+						<label class="control-label" for="txtTargetParent">Chuyên mục cha</label>
 						<div class="controls">
-							<select id="txtTargetParent">
+							<select id="txtTargetParent" name="txtTargetParent">
 								<option>Chuyên mục 1</option>
 								<option>Chuyên mục 2</option>
 							</select>
