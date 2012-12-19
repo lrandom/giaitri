@@ -12,9 +12,12 @@ class Category extends CI_Controller {
         $this -> load -> helper('text');
         $this -> load -> helper('trim_text');
         $this -> load -> database();
-        $this -> load -> model('subject');
     }
-
+    
+	function showAddForm(){
+	    $this->load->view('back_end/form/frmAddCategory');
+	}
+	
     function index() {
 
     }

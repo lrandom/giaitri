@@ -1,0 +1,42 @@
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f5f5f5;
+}
+
+.wrapper {
+	margin-top: 10px;
+}
+
+.btn-group .search-query {
+	height: 30px;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-chrome-border-radius: 0px;
+}
+
+.input-append {
+	margin-bottom: 0px
+}
+
+.input-append .option-search {
+	border-right: 0px;
+	border-radius: 5px 0px 0px 5px;
+	-moz-border-radius: 5px 0px 0px 5px;
+	-webkit-border-radius: 5px 0px 0px 5px;
+	-chrome-border-radius: 5px 0px 0px 5px;
+	width: 150px;
+}
+
+.control-group input[type="text"], 
+.control-group input[type="password"],
+select{
+	height: 30px;
+	width: 300px;
+}
+
+textarea{
+    height: 400px;
+    width: 500px;
+}

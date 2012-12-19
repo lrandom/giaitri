@@ -15,7 +15,6 @@ class Dash_board extends CI_Controller {
 		$this -> load -> library('session');
 		$this -> load -> helper('url');
 		$this -> load -> database();
-		$this -> load -> library('do_upload');
 	}
 
 	function index() {
@@ -25,12 +24,15 @@ class Dash_board extends CI_Controller {
 			$this -> load -> view('admin/includes/header', $data);
 			$this -> load -> view('admin/includes/footer');
 		} else {
-			$this -> load -> view('admin/login');
+			$this -> load -> view('back_end/main_category');
 		}
+		
+		
+		
 	}
 
 	//truy cap tin tuc
-	function news() {
+	function article() {
 		if ($this -> session -> userdata('loged')) {
 			$user_data = $this -> session -> userdata('loged');
 			$app_access = $user_data['app_access'];
@@ -48,8 +50,22 @@ class Dash_board extends CI_Controller {
 		} else {
 			$this -> load -> view('admin/login');
 		}
+
+        //load all
+        
 	}
 
+	
+	function user(){
+		
+	}
+	
+	function category(){
+		$this->load->view('back_end/main_category');
+	}
+
+    
+	
 	//truy cap vai tro
 	function role() {
 		if ($this -> session -> userdata('loged')) {
@@ -197,8 +213,6 @@ class Dash_board extends CI_Controller {
 		}
 	}
 
-	//end truy cap file
-
 	//truy cap binh luan
 	function comment() {
 		if ($this -> session -> userdata('loged')) {
@@ -230,11 +244,6 @@ class Dash_board extends CI_Controller {
 		} else {
 			$this -> load -> view('admin/login');
 		}
-	}
-
-	//truy cap thong tin toa soan
-	function company_infor() {
-
 	}
 
 	//truy cap quang cao
