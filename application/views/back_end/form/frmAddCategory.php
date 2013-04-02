@@ -1,7 +1,7 @@
 <?php
 $CI = &get_instance();
 ?>
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html>
 	<?php
 	$CI -> load -> view('back_end/includes/header.php');
@@ -9,49 +9,53 @@ $CI = &get_instance();
 	<script type="text/javascript" src="<?php echo base_url() ?>jqplugin/jquery_validation/jquery.validate.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var required_messager="Vui lòng không bỏ trống dòng này";
-			var digits_messager="Vui lòng chỉ điền số";
+			var required_messager = "Vui lòng không bỏ trống dòng này";
+			var digits_messager = "Vui lòng chỉ điền số";
 			$('#form-add-category').validate({
 				rules : {
-					txtCategory : {
-						required:true,
-						minlength:3,
-						maxlength:100
+					txtName : {
+						required : true,
+						minlength : 3,
+						maxlength : 100,
+					    remote:{
+							  url:'<?php echo base_url() ?>admin/Category/checkNameExist',
+							  type:"post",
+							  data:{
+							  	txtName:function(){
+							  		return $('#form-add-category :input[name="txtName"]').val();
+							  	}
+							  }
+					    }
 					},
-					txtIndexMenu : {
-						required:true,
-						digits:true,
-						range:[1,100]
-					},
-					txtLevel:{
-						required:true,
-						digits:true,
-						range:[1,10]
-					},
-					txtDesc:{
-						required:true
+					txtOrderTopMenu : {
+						required : true,
+						digits : true,
+						range : [1, 100],
+					    remote:{
+							  url:'<?php echo base_url() ?>admin/Category/checkOrderExist',
+							  type:"post",
+							  data:{
+							  	txtOrderTopMenu:function(){
+							  		return $('#form-add-category :input[name="txtOrderTopMenu"]').val();
+							  	}
+							  }
+					    }
 					}
 				},
 				messages : {
-					txtCategory : {
-					  required:required_messager,
-					  minlength:"Độ dài kí tự phải lớn hơn 3 và nhỏ hơn 100",
-					  maxlength:"Độ dài kí tự phải lớn hơn 3 và nhỏ hơn 100"
+					txtName : {
+						required : required_messager,
+						minlength : "Độ dài kí tự phải lớn hơn 3 và nhỏ hơn 100",
+						maxlength : "Độ dài kí tự phải lớn hơn 3 và nhỏ hơn 100",
+						remote:$.validator.format("{0} đã tồn tại")
 					},
-					txtIndexMenu:{
-				      required:required_messager,
-				      digits:digits_messager,
-				      range:"Chỉ nhập giá trị từ 1 tới 100"
-					},
-					txtLevel:{
-					  required:required_messager,
-					  digits:digits_messager,
-					  range:"Chỉ từ 1 tới 10"
-					},
-					txtDesc:{
-					  required:required_messager
+					txtOrderTopMenu : {
+						required : required_messager,
+						digits : digits_messager,
+						range : "Chỉ nhập giá trị từ 1 tới 100",
+						remote:$.validator.format("{0} đã tồn tại")
 					}
-			    },
+				},
 				errorClass : "help-inline",
 				errorElement : "span",
 				highlight : function(element, errorClass, validClass) {
@@ -70,47 +74,62 @@ $CI = &get_instance();
 		$CI -> load -> view('back_end/includes/nav_menu');
 		?>
 		<div class="container-fluid wrapper">
-			<form class="form-horizontal" id="form-add-category">
+			<!--show alert messager-->
+			<?php
+if(isset($alert_state)){
+			?>
+			<div class='alert alert-<?php echo $alert_state; ?>'>
+				<button type="button" class="close" data-dismiss="alert">
+					&times;
+				</button>
+				<?php echo $alert_msg; ?>
+			</div>
+			<?php
+			}
+			?>
+			<!--end show alert messager-->
+			<form class="form-horizontal" id="form-add-category" method="post">
 				<fieldset>
 					<legend>
 						Thêm mới chuyên mục
 					</legend>
 					<div class="control-group">
-						<label class="control-label" for="txtCategory">Tên chuyên mục</label>
+						<label class="control-label" for="txtName">Tên chuyên mục</label>
 						<div class="controls">
-							<input type="text" id="txtCategory" name="txtCategory" placeholder="Tên chuyên mục">
+							<input type="text" id="txtName" name="txtName" placeholder="Tên chuyên mục">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="txtIndeMenu">Thứ tự trên menu top</label>
+						<label class="control-label" for="txtOrderTopMenu">Thứ tự trên top Menu</label>
 						<div class="controls">
-							<input type="text"  id="txtIndexMenu" name="txtIndexMenu" placeholder="Thứ tự trên menu">
+							<input type="text"  id="txtOrderTopMenu" name="txtOrderTopMenu" placeholder="Thứ tự trên top menu">
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="txtLevel">Cấp độ chuyên mục</label>
+						<label class="control-label" for="txtParentId">Chuyên mục cha</label>
 						<div class="controls">
-							<input type="text" id="txtLevel" name="txtLevel" placeholder="Cấp độ chuyên mục">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label" for="txtTargetParent">Chuyên mục cha</label>
-						<div class="controls">
-							<select id="txtTargetParent" name="txtTargetParent">
-								<option>Chuyên mục 1</option>
-								<option>Chuyên mục 2</option>
+							<select id="txtParentId" name="txtParentID">
+								<option value="0"></option>
+								<?php
+								if (isset($cat_parent_list)) {
+									foreach ($cat_parent_list as $r) {
+										echo '<option value="' . $r -> id . '">' . $r -> name . '</option>';
+									}
+								}
+								?>
 							</select>
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="txtDesc">Miêu tả</label>
+						<label class="control-label" for="txtState">Trạng thái</label>
 						<div class="controls">
-							<textarea id="txtDesc" name="txtDesc">
-					   </textarea>
+							<select id="txtState" name="txtState">
+								<option value="<?php echo DISABLED_STATE ?>">Vô hiệu</option>
+								<option value="<?php echo ACTIVED_STATE ?>">Kích hoạt</option>
+							</select>
 						</div>
 					</div>
 
@@ -119,9 +138,7 @@ $CI = &get_instance();
 							<button type="submit" class="btn" >
 								Thêm
 							</button>
-							<button type="button" class="btn">
-								Hủy
-							</button>
+							<a class="btn" href="<?php echo base_url() ?>admin/category"> Quay lại </a>
 						</div>
 					</div>
 				</fieldset>

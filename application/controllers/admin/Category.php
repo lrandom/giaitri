@@ -4,249 +4,209 @@
  */
 class Category extends CI_Controller {
 
-    function __construct() {
-        parent::__construct();
-        date_default_timezone_set('Asia/Bangkok');
-        $this -> load -> library('session');
-        $this -> load -> helper('url');
-        $this -> load -> helper('text');
-        $this -> load -> helper('trim_text');
-        $this -> load -> database();
-    }
-    
-	function showAddForm(){
-	    $this->load->view('back_end/form/frmAddCategory');
+	function __construct() {
+		parent::__construct();
+		date_default_timezone_set('Asia/Bangkok');
 	}
-	
-    function index() {
 
-    }
+	function index() {
+		$this -> load -> model('Categories_model');
+		$where = array();
+		$like = array();
+		if ($this -> input -> get('action')) {
+			$action = $this -> input -> get('action');
+			switch ($action) {
+				case 'delete' :
+				$id = intval($this -> input -> get('id'));
+				if ($id) {
+					$this -> load -> model('User_model');
+					$this -> M_user -> remove_user_by_id($id);
+					$data['alert_state'] = ALERT_STATE_SUCCESS;
+					$data['alert_msg'] = DEL_SUCCESS_MSG;
+				}
+				break;
 
-    function get_subject() {
-        $select = '*';
-        $array_where = array();
-        $array_like = array();
-        if (isset($_POST['page'])) {
-            $page = $this -> input -> post('page');
-        } else {
-            $page = 1;
-        }
+				default :
+				break;
+			}
+		}
 
-        if (isset($_POST['rows'])) {
-            $offset = $this -> input -> post('rows');
-        } else {
-            $offset = 10;
-        }
+		if ($this -> input -> get('show')) {
+			$show = $this -> input -> get('show');
+			switch ($show) {
+				case 'actived' :
+				$where['state'] = ACTIVED_STATE;
+				break;
 
-        if (isset($_POST['q_name']) && isset($_POST['q_value'])) {
-            switch ($_POST['q_name']) {
-                case 'id' :
-                    $q_value = $this -> input -> post('q_value');
-                    $array_where = array();
-                    $array_like = array();
-                    $array_where['cls_idSubject'] = $q_value;
-                    break;
-                case 'name_subject' :
-                    $q_value = $this -> input -> post('q_value');
-                    $array_where = array();
-                    $array_like = array();
-                    $array_like['cls_nameSubject'] = $q_value;
-                    break;
-                default :
-                    break;
-            }
-        }
+				case 'disabled' :
+				$where['state'] = DISABLED_STATE;
+				break;
 
-        if (isset($_POST['q_view'])) {
-            switch ($_POST['q_view']) {
-                case 'v_on' :
-                    $array_where = array();
-                    $array_like = array();
-                    $array_where['cls_displayMenu'] = 1;
-                    break;
+				case 'reg_today' :
+				$where['date(last_login)'] = date('Y-m-d', time());
+				break;
 
-                case 'v_off' :
-                    $array_where = array();
-                    $array_like = array();
-                    $array_where['cls_displayMenu'] = 0;
-                    break;
+				case 'sig_today' :
+				$where['date(date_join)'] = date('Y-m-d', time());
+				break;
 
-                case 'v_all' :
-                    $array_where = array();
-                    $array_like = array();
-                    break;
-                default :
-                    break;
-            }
-        }
+				default :
+				break;
+			}
+		}
 
-        if (isset($_POST['sort']) && isset($_POST['order'])) {
-            $sort = $this -> input -> post('sort');
-            $order = $this -> input -> post('order');
-            $order_by = array($sort => $order);
-        } else {
-            $order_by = array('cls_idSubject' => 'DESC');
-        }
+		if ($this -> input -> get('key_q') && $this -> input -> get('q')) {
+			$key_q = $this -> input -> get('key_q');
+			$q = $this -> input -> get('q');
+			switch ($key_q) {
+				case 'id' :
+				$where['id'] = $q;
+				break;
 
-        $first = ($page - 1) * $offset;
-        $total = $this -> subject -> total($array_where, $array_like);
-        $result['total'] = $total;
-        $rows = $this -> subject -> get_subject($select, $array_where, $array_like, $first, $offset, $order_by);
-        if ($rows != null) {
-            foreach ($rows as $r) {
-                if ($r -> cls_displayMenu == 1) {
-                    $r -> cls_displayMenu = 'Ä�ang hiá»‡n';
-                } else {
-                    $r -> cls_displayMenu = 'Ä�ang áº©n';
-                }
-            }
-            $result['rows'] = $rows;
-        } else {
-            $result['rows'] = 0;
-        }
+				case 'name' :
+				$like['name'] = $q;
+				break;
 
-        echo json_encode($result);
-    }
+				default :
+				break;
+			}
+		}
+		//config and init pagination
+		$config = array();
+		$config['total_rows'] = $this -> Categories_model -> total($where, $like);
+		//end config and init pagination
 
-    function show_form_add_subject() {
-        $select = "*";
-        $array_where = array('cls_level < ' => 4);
-        $array_like = array();
-        $order_by = array('cls_nameSubject' => 'ASC');
-        $data['subject'] = $this -> subject -> get_subject($select, $array_where, $array_like, 0, 500, $order_by);
-        $this -> load -> view('admin/form/frmAddSubject', $data);
-    }
+		$page = $this -> input -> get('page') ? $this -> input -> get('page') : 1;
+		$order = $this -> input -> get('order') ? $this -> input -> get('order') : 'ASC';
+		$per_page = $this -> input -> get('per_page') ? $this -> input -> get('per_page') : 5;
 
-    function show_form_edit_subject() {
-        if (!isset($_GET)) {
-            return (0);
-        }
-        $idSubject = mysql_real_escape_string($_GET['idSubject']);
-        $data['subject'] = $this -> subject -> get_subject_by_id($idSubject);
-        $this -> load -> view('admin/form/frmEditSubject', $data);
-    }
+		$data['cat_list'] = $this -> Categories_model -> get_categories("*", $where, $like, ($page - 1) * $per_page, $per_page, array('id' => $order));
+		$data['base_url'] = base_url() . 'admin/dash_board/user/?order=' . $order;
+		$data['sort'] = $order;
+		$data['next_sort'] = $order == 'ASC' ? 'DESC' : 'ASC';
 
-    function add_subject() {
-        if (isset($_POST)) {
-            $nameSubject = mysql_real_escape_string($_POST['nameSubject']);
-            $linkDirect = mysql_real_escape_string($_POST['linkDirect']);
-            $parentSubject = mysql_real_escape_string($_POST['parentSubject']);
-            $levelParent = mysql_real_escape_string($_POST['levelParent']);
-            if ($levelParent != '') {
-                $level = $levelParent + 1;
-            } else {
-                $level = 1;
-            }
-            $data_array = array('cls_nameSubject' => $nameSubject, 'cls_linkWebClone' => $linkDirect, 'cls_targetParent' => $parentSubject, 'cls_level' => $level);
+		$config['base_url'] = $data['base_url'];
+		$config['per_page'] = $per_page;
+		$this -> pagination -> initialize($config);
+		$data['page_link'] = $this -> pagination -> create_links();
+		$data['title'] = "Người dùng";
+		$data['add_link'] = base_url() . 'admin/category/add';
+		$data['title'] = 'Quản lí chuyên mục';
+		$this -> load -> view('back_end/main_category', $data);
+	}
 
-            $this -> subject -> insert_subject($data_array);
-            echo json_encode(array('ok' => 1));
-        }
-    }
+	function getAjaxCategory(){
+		$this->load->model('Categories_model');
+		$cat_list = $this -> Categories_model -> get_categories_availabel(0, 100);
+		foreach ($cat_list as $r) {
+			echo '<option value="'.$r->id.'">'.$r->name.'</option>';
+		}
+	}
 
-    function show_on_top_menu() {
-        if (isset($_POST)) {
-            for ($i = 0; $i < count($_POST['id_subject']); $i++) {
-                $id = mysql_real_escape_string($_POST['id_subject'][$i]);
-                $data_array = array('cls_displayMenu' => 1);
-                $array_where = array('cls_idSubject' => $id);
-                $this -> subject -> update_subject($data_array, $array_where);
-            }
-        }
-    }
 
-    function hide_on_top_menu() {
-        if (isset($_POST)) {
-            for ($i = 0; $i < count($_POST['id_subject']); $i++) {
-                $id = mysql_real_escape_string($_POST['id_subject'][$i]);
-                $data_array = array('cls_displayMenu' => 0);
-                $array_where = array('cls_idSubject' => $id);
-                $this -> subject -> update_subject($data_array, $array_where);
-            }
-        }
-    }
+	function add() {
+		$this -> load -> model('Categories_model');
+		if (isset($_POST['txtName'])) {
+			$txtName = strval($this -> input -> post('txtName'));
+			$txtOrderTopMenu = intval($this -> input -> post('txtOrderTopMenu'));
+			$txtParentId = intval($this -> input -> post('txtParentID'));
+			$txtState = intval($this -> input -> post('txtState'));
+			$data_array = array('name' => $txtName, 'order_top_menu' => $txtOrderTopMenu, 'parent_id' => $txtParentId, 'state' => $txtState);
+			$this -> Categories_model -> insert_categories($data_array);
+			$data['alert_state'] = ALERT_STATE_SUCCESS;
+			$data['alert_msg'] = ADD_SUCCESS_MSG;
+		}
 
-    function remove_subject() {
-        if (isset($_POST)) {
-            for ($i = 0; $i < count($_POST['id_subject']); $i++) {
-                $id = mysql_real_escape_string($_POST['id_subject'][$i]);
-                $array_where = array('cls_idSubject' => $id);
-                $this -> subject -> remove_subject($array_where);
-            }
-        }
-    }
+		$data['cat_parent_list'] = $this -> Categories_model -> get_categories("*", array('state' => ACTIVED_STATE), array(), 0, 100, array('id' => 'ASC'));
+		$data['title'] = "Thêm mới chuyên mục";
+		$this -> load -> view('back_end/form/frmAddCategory', $data);
+	}
 
-    function change_name_subject() {
-        if (isset($_POST)) {
-            $idSubject = mysql_real_escape_string($_POST['idSubject']);
-            $nameSubject = mysql_real_escape_string($_POST['nameSubject']);
-            if ($nameSubject == "") {
-                echo 'TÃªn chuyÃªn má»¥c khÃ´ng Ä‘Æ°á»£c trá»‘ng';
-                return (0);
-            }
+	function edit() {
+		if ($this -> uri -> segment(4)) {
+			$id = intval($this -> uri -> segment(4));
+			if ($id) {
+				$this -> load -> model('Categories_model');
+				if (isset($_POST['txtName'])) {
+					$txtName = strval($this -> input -> post('txtName'));
+					$txtOrderTopMenu = intval($this -> input -> post('txtOrderTopMenu'));
+					$txtParentId = intval($this -> input -> post('txtParentID'));
+					$txtState = intval($this -> input -> post('txtState'));
+					$data_array = array('name' => $txtName, 'order_top_menu' => $txtOrderTopMenu, 'parent_id' => $txtParentId, 'state' => $txtState);
+					$this -> Categories_model -> update_categories($data_array, array('id' => $id));
+					$data['alert_state'] = ALERT_STATE_SUCCESS;
+					$data['alert_msg'] = EDIT_SUCCESS_MSG;
+				}
+				$data['category'] = $this -> Categories_model -> get_categories_by_id($id);
+				if ($data['category'] != null) {
+					$data['title'] = 'Thay đổi thông tin thành viên';
+					$this -> load -> view('back_end/form/frmEditCategory', $data);
+				}
+			}
+		}
+	}
 
-            $array_like = array();
-            $array_where = array('cls_idSubject <>' => $idSubject, 'cls_nameSubject' => $nameSubject);
-            $exist = $this -> subject -> total($array_where, $array_like);
-            if ($exist > 0) {
-                echo 'TÃªn chuyÃªn má»¥c nÃ y Ä‘Ã£ tá»“n táº¡i';
-                return (0);
-            }
-            $data_array = array('cls_nameSubject' => $nameSubject);
-            $array_where = array('cls_idSubject' => $idSubject);
-            $this -> subject -> update_subject($data_array, $array_where);
-            echo 'Cáº­p nháº­t thÃ nh cÃ´ng';
-        }
-    }
+	function checkNameExist() {
+		if (isset($_POST['txtName'])) {
+			$this -> load -> model('Categories_model');
+			$txtName = $this -> input -> post('txtName');
+			$data = $this -> Categories_model -> get_categories('*', array('name' => $txtName), array(), 0, 1, array());
+			if ($data != null) {
+				echo "false";
+			} else {
+				echo "true";
+			}
+		} else {
+			echo "false";
+		}
+	}
 
-    function change_link_direct() {
-        if (isset($_POST)) {
-            $idSubject = mysql_real_escape_string($_POST['idSubject']);
-            $linkDirect = mysql_real_escape_string($_POST['linkDirect']);
-            $data_array = array('cls_linkWebClone' => $linkDirect);
-            $array_where = array('cls_idSubject' => $idSubject);
-            $this -> subject -> update_subject($data_array, $array_where);
-            echo 'Cáº­p nháº­t thÃ nh cÃ´ng';
-        }
-    }
+	function checkOrderExist() {
+		if (isset($_POST['txtOrderTopMenu'])) {
+			$this -> load -> model('Categories_model');
+			$txtOrder = $this -> input -> post('txtOrderTopMenu');
+			$data = $this -> Categories_model -> get_categories('*', array('order_top_menu' => $txtOrder), array(), 0, 1, array());
+			if ($data != null) {
+				echo "false";
+			} else {
+				echo "true";
+			}
+		} else {
+			echo "false";
+		}
+	}
 
-    function change_index_menu() {
-        if (isset($_POST)) {
-            $idSubject = mysql_real_escape_string($_POST['idSubject']);
-            $index = mysql_real_escape_string($_POST['index']);
-            if (!is_numeric($index)) {
-                echo 'Thá»© tá»± pháº£i lÃ  sá»‘';
-                return (0);
-            }
+	function checkNameExistEdit() {
+		if (isset($_POST['txtName'])) {
+			$this -> load -> model('Categories_model');
+			$txtName = $this -> input -> post('txtName');
+			$id = $this -> input -> post('id');
+			$data = $this -> Categories_model -> get_categories('*', array('name' => $txtName, 'id <>' => $id), array(), 0, 1, array());
+			if ($data != null) {
+				echo "false";
+			} else {
+				echo "true";
+			}
+		} else {
+			echo "false";
+		}
+	}
 
-            if ($index != 0) {
-                $array_like = array();
-                $array_where = array('cls_idSubject <>' => $idSubject, 'cls_indexMenu' => $index);
-                $exist = $this -> subject -> total($array_where, $array_like);
-                if ($exist > 0) {
-                    echo 'Thá»© tá»± nÃ y Ä‘Ã£ tá»“n táº¡i';
-                    return (0);
-                }
-            }
-            $data_array = array('cls_indexMenu' => $index);
-            $array_where = array('cls_idSubject' => $idSubject);
-            $this -> subject -> update_subject($data_array, $array_where);
-            echo 'Cáº­p nháº­t thÃ nh cÃ´ng';
-        }
-    }
-
-    function change_hot_subject() {
-            if(isset($_POST['idSubject'])){
-              $idSubject=$this->input->post('idSubject');
-              $data_array=array('cls_forum_hot'=>0);
-              $array_where=array();
-              $this->subject->update_subject($data_array, $array_where);
-              echo $idSubject;
-              $data_array=array('cls_forum_hot'=>1);
-              $array_where=array('cls_idSubject'=>$idSubject);
-              $this->subject->update_subject($data_array, $array_where);
-            }
-    }
+	function checkOrderExistEdit() {
+		if (isset($_POST['txtOrderTopMenu'])) {
+			$this -> load -> model('Categories_model');
+			$txtOrder = $this -> input -> post('txtOrderTopMenu');
+			$id = $this -> input -> post('id');
+			$data = $this -> Categories_model -> get_categories('*', array('order_top_menu' => $txtOrder, 'id <>' => $id), array(), 0, 1, array());
+			if ($data != null) {
+				echo "false";
+			} else {
+				echo "true";
+			}
+		} else {
+			echo "false";
+		}
+	}
 
 }
 ?>

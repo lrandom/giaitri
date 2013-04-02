@@ -18,92 +18,53 @@
 										<a>Thay đổi mật khẩu</a>
 									</li>
 									<li>
-										<a>Thoát</a>
-
-									</li>
+										<a href="<?php echo base_url()?>logout">Thoát</a>
+                                    </li>
 								</ul>
 							</li>
 						</ul>
 
 						<ul class="nav">
 							<li class="active dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Bài đăng <span class="badge badge-info">8</span></a>
+								<a href="<?php echo base_url() ?>article" >Bài đăng <span class="badge badge-info">8</span></a>
+
+							</li>
+
+							<li class="dropdown">
+								<a href="<?php echo base_url() ?>admin/category">Chuyên mục</a>
+							</li>
+
+							<li class="dropdown">
+								<a href="#about">Vai trò & người dùng</a>
 								<ul class="dropdown-menu">
 									<li>
-										<a>Quản lí bài đăng</a>
+										<a href="<?php echo base_url()?>admin/role"> Vai trò & quyền</a>
 									</li>
 									<li>
-										<a>Bài đăng mới nhất</a>
+										<a href="<?php echo base_url()?>admin/func"> Chức năng</a>
 									</li>
-
 									<li>
-										<a>Bài đăng cũ nhất</a>
-
+										<a href="<?php echo base_url()?>user"> Người dùng</a>
 									</li>
 								</ul>
 							</li>
 
 							<li class="dropdown">
-								<a href="#contact">Chuyên mục</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a> Quản lí chuyên mục </a>
-									</li>
-									<li>
-										<a>12 cung hoàng đạo</a>
-									</li>
-									<li>
-										<a>Truyện cười</a>
-									</li>
-									<li>
-										<a>Ảnh vui</a>
-									</li>
-									<li>
-										<a>Video</a>
-									</li>
-								</ul>
-							</li>
-
-							<li class="dropdown">
-								<a href="#about">Phân quyền</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a>Vai trò</a>
-									</li>
-									<li>
-										<a>Chức năng truy cập</a>
-									</li>
-									<li>
-										<a> Thành viên </a>
-									</li>
-								</ul>
-							</li>
-
-							<li class="dropdown">
-								<a href="#contact">Bình luận</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a>Quản lí bình luận</a>
-									</li>
-
-									<li>
-										<a>Bình luận mới</a>
-									</li>
-								</ul>
+								<a href="<?php echo base_url() ?>admin/comment">Bình luận</a>
 							</li>
 
 							<li>
-								<a href="">Logo</a>
+								<a href="<?php echo base_url()?>admin/logo">Logo</a>
 							</li>
 
 							<li>
-								<a href="">Quảng cáo</a>
+								<a href="<?php echo base_url()?>admin/adverstment">Quảng cáo</a>
 							</li>
 							<li>
-								<a href="">File</a>
+								<a href="<?php echo base_url() ?>admin/file_manager">File</a>
 							</li>
 							<li>
-								<a href="#contact">Cài đặt</a>
+								<a href="<?php echo base_url() ?>admin/setting">Cài đặt</a>
 							</li>
 							<li>
 								<a href="#">Thống kê google</a>

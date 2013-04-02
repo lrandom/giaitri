@@ -1,143 +1,106 @@
 <?php
 $CI = &get_instance();
 ?>
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html>
 	<?php
 	$CI -> load -> view('back_end/includes/header.php');
 	?>
-	
-	
 	<body>
 		<?php
 		$CI -> load -> view('back_end/includes/nav_menu');
 		?>
 		<div class="container-fluid wrapper">
-            <div class="navbar">
+			<div class="navbar">
 				<div class="navbar-inner">
 					<div class="btn-group">
-						<a class="btn" href="<?php echo base_url(); ?>admin/Category/showAddForm">
-							Thêm
-						</a>
+						<a class="btn" href="<?php echo $add_link; ?>"> Thêm </a>
 					</div>
 
 					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Hiển thị theo chuyên mục<span class="caret"></span> </a>
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Hiển thị<span class="caret"></span> </a>
 						<ul class="dropdown-menu">
 							<li>
-								<a>12 cung hoàng đạo</a>
+								<a href="<?php echo base_url() ?>admin/category">Tất cả các chuyên mục</a>
+							</li>
+							<li>
+								<a href="<?php echo base_url() ?>admin/category?show=disabled">Chuyên mục bị khóa</a>
+							</li>
+							<li>
+								<a href="<?php echo base_url() ?>admin/category?show=actived">Chuyên mục đang hoạt động</a>
 							</li>
 						</ul>
 					</div>
 
 					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Hiển thị theo<span class="caret"></span> </a>
-						<ul class="dropdown-menu">
-							<li>
-								<a>Tin trong ngày</a>
-							</li>
-							<li>
-								<a>Tin chờ duyệt</a>
-							</li>
-							<li>
-								<a>Tin được duyệt</a>
-							</li>
-
-						</ul>
-					</div>
-
-					<div class="btn-group">
-
-						<div class="input-append">
+                        <div class="input-append">
 							<select class="btn option-search">
-								<option>Giá trị 1</option>
-								<option>Giá trị 2</option>
+								<option value="id">ID</option>
+								<option value="name">name</option>
 							</select>
 							<input class="span2 input-medium search-query" id="appendedInputButton" type="text">
-							<button class="btn" type="button">
-								Tìm kiếm
-							</button>
 						</div>
 					</div>
-
-				</div>
-
-			</div>
+					
+					         <script type="text/javascript">
+							$('.search-query').keypress(function(e) {
+								var code = (e.keyCode ? e.keyCode : e.which);
+								if (code == 13) {
+									var key_q = $('.option-search option:selected').val();
+									var q = $('.search-query').val();
+									if (key_q != "" && q != "") {
+										location.href ="<?php echo base_url()?>admin/category?key_q=" + key_q + "&q=" + q;
+									}
+								}
+							})
+				    </script>
+                    
+					
+                 </div>
+            </div>
 
 			<div class="row-fluid wrapper">
 				<div class="span12 ">
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th>Tên thành viên</th>
-								<th>Email</th>
-								<th>Năm sinh</th>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Vị trí trên top menu</th>
+								<th>Trạng thái</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
-							<tr>
-								<td>Xin chào</td>
-								<td>Keke</td>
-								<td>Keke</td>
-							</tr>
+									<?php
+							if (isset($cat_list)) {
+								foreach ($cat_list as $r) {
+									echo '<tr>
+<td>' . $r -> id . '</td>
+<td>' . $r -> name . '</td>
+<td>'.$r->order_top_menu.'</td>
+<td>' . $r -> state . '</td>
+<td><a class="btn btn-info"  href="' . base_url() . 'admin/category/edit/' . $r -> id . '">Sửa</a></td>
+<td><a class="btn btn-danger" href="' . base_url() . 'admin/category/?action=delete&id=' . $r -> id . '">Xóa</a></td>
+</tr>';
+								}
+							}
+							?>
 						</tbody>
 					</table>
-					<div class="pagination">
-						<ul>
-							<li class="active">
-								<a>1</a>
-							</li>
-							<li>
-								<a>1</a>
-							</li>
-							<li>
-								<a>1</a>
-							</li>
-							<li>
-								<a>1</a>
-							</li>
-						</ul>
-					</div>
+			        <?php
+					if (isset($page_link)) {
+						echo $page_link;
+					}
+					?>
 				</div>
 			</div>
 			<!--end row fluid-->
-			
-			
+
 			<hr>
-            <?php
-			  $CI = &get_instance();
-			  $CI -> load -> view('back_end/includes/footer');
+			<?php
+			$CI = &get_instance();
+			$CI -> load -> view('back_end/includes/footer');
 			?>
 		</div><!--/.fluid-container-->
 	</body>

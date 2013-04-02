@@ -7,131 +7,31 @@ class Role extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		date_default_timezone_set('Asia/Bangkok');
-		$this -> load -> library('session');
-		$this -> load -> helper('url');
-		$this -> load -> helper('text');
-		$this -> load -> helper('trim_text');
-		$this -> load -> database();
-		$this -> load -> model('role');
-		$this -> load -> model('subject');
 	}
 
-	function show_form_add_role() {
-		$this -> load -> view('admin/form/frmAddRole');
-	}
-
-	function show_form_change_perm() {
-		if (isset($_GET['id'])) {
-			$data['id'] = $this -> input -> get('id');
-			$this -> load -> model('role_perm');
-			$this -> load -> model('app');
-			$rows = $this -> role_perm -> get_role_perm_with_role_id($data['id']);
-			if ($rows != NULL) {
-				foreach ($rows as $r) {
-					$tmp = $this -> app -> get_by_id($r -> cls_id_app, 0, 1);
-					//echo $this->db->last_query();
-					$r -> cls_desc = $tmp[0] -> cls_desc;
-				}
-			}
-			$data['role_perm'] = $rows;
-			$data['app'] = $this -> app -> get_app('*', array(), array(), 0, 100, array());
-			$this -> load -> view('admin/form/frmChangePerm', $data);
-		}
-	}
-
-	function add_role() {
-		if (isset($_POST['role_name'])) {
-			$role_name = $this -> input -> post('role_name');
-			if ($role_name != '') {
-				$curr_date = date('Y-m-d H:i:s', time());
-				$data_array = array('cls_name' => $role_name, 'cls_last_update' => $curr_date);
-				$this -> role -> insert_role($data_array);
-			}
-		}
-	}
-
-	function remove_role() {
-		if (isset($_POST['id'])) {
-			$tmp = $this -> input -> post('id');
-			for ($i = 0; $i < count($tmp); $i++) {
-				$id = $tmp[$i];
-				$this -> role -> remove_role_by_id($id);
-			}
-		}
-	}
-
-	function add_perm() {
-		if (isset($_POST['role_id'])) {
-			$this -> load -> model('role_perm');
-			$role_id = $this -> input -> post('role_id');
-			$app_id = $this -> input -> post('app_id');
-			$list_access = $this -> input -> post('list_access');
-			$set_of_perm = '';
-			for ($i = 0; $i < count($list_access); $i++) {
-				$set_of_perm .= $list_access[$i];
-			}
-			//check exist
-			$total = $this -> role_perm -> get_total_role_perm_with_2id($role_id, $app_id);
-			if ($total == 0) {
-				$this -> role_perm -> insert_role_perm_with_params($role_id, $app_id, $set_of_perm);
-				$curr_date=date('Y-m-d H:i:s',time());
-				$data_array=array('cls_last_update'=>$curr_date);
-			    $this -> role -> update_role($data_array, array('cls_id'=>$role_id));
-				echo 'Cho phÃ©p truy cáº­p á»©ng dá»¥ng thÃ nh cÃ´ng';
-			} else {
-				$data = $this -> role_perm -> get_role_perm_with_2id($role_id, $app_id);
-				if ($set_of_perm != $data[0] -> cls_perm) {
-					$this -> role_perm -> update_role_perm_with_2id($set_of_perm, $role_id, $app_id);
-				    $curr_date=date('Y-m-d H:i:s',time());
-				    $data_array=array('cls_last_update'=>$curr_date);
-			        $this -> role -> update_role($data_array, array('cls_id'=>$role_id));
-					echo 'PhÃ¢n quyá»�n thÃ nh cÃ´ng';
-				} else {
-					echo 'Quyá»�n truy cáº­p á»©ng dá»¥ng nÃ y Ä‘Ã£ tá»“n táº¡i';
-				}
-			}
-		}
-	}
-    
-	function remove_perm(){
-	  if(isset($_POST['app_id']) && isset($_POST['role_id'])){
-	    $app_id=$this->input->post('app_id');
-		$role_id=$this->input->post('role_id');
-		$this->load->model('role_perm');
-		$this->role_perm->remove_role_with_2id($role_id, $app_id);
-	  }
-	}
-	
-	function get_role() {
-		$select = '*';
-		$array_where = array();
-		$array_like = array();
-		if (isset($_POST['page'])) {
-			$page = $this -> input -> post('page');
-		} else {
-			$page = 1;
-		}
-
-		if (isset($_POST['rows'])) {
-			$offset = $this -> input -> post('rows');
-		} else {
-			$offset = 10;
-		}
-
-		if (isset($_POST['q_name']) && isset($_POST['q_value'])) {
-			switch ($_POST['q_name']) {
-				case 'id' :
-					$q_value = $this -> input -> post('q_value');
-					$array_where = array();
-					$array_like = array();
-					$array_where['cls_id'] = $q_value;
-					break;
-
-				case 'title' :
-					$q_value = $this -> input -> post('q_value');
-					$array_where = array();
-					$array_like = array();
-					$array_like['cls_name'] = $q_value;
+	function index() {
+		$this -> load -> model('Role_model');
+		$where = array();
+		$like = array();
+		if ($this -> input -> get('action')) {
+			$action = $this -> input -> get('action');
+			switch ($action) {
+				case 'delete':
+					$id = intval($this -> input -> get('id'));
+					if ($id) {
+						if ($id != LOWEST_ROLE_ID && $id != HIGHEST_ROLE_ID) {
+							$this -> load -> model('User_model');
+							$this -> User_model -> remove_user(array('role_id' => $id));
+							$this -> load -> model('Perm_model');
+							$this -> Perm_model -> remove_perm(array('role_id' => $id));
+							$this -> Role_model -> remove_role_by_id($id);
+							$data['alert_state'] = ALERT_STATE_SUCCESS;
+							$data['alert_msg'] = DEL_SUCCESS_MSG;
+						} else {
+							$data['alert_state'] = ALERT_STATE_INFO;
+							$data['alert_msg'] = BASE_USER_MSG_WARRNING;
+						}
+					}
 					break;
 
 				default :
@@ -139,24 +39,104 @@ class Role extends CI_Controller {
 			}
 		}
 
-		if (isset($_POST['sort']) && isset($_POST['order'])) {
-			$sort = $this -> input -> post('sort');
-			$order = $this -> input -> post('order');
-			$order_by = array($sort => $order);
-		} else {
-			$order_by = array('cls_last_update' => 'DESC');
+		if ($this -> input -> get('show')) {
+			$show = $this -> input -> get('show');
+			switch ($show) {
+				case 'actived' :
+					$where['state'] = ACTIVED_STATE;
+					break;
+
+				case 'disabled' :
+					$where['state'] = DISABLED_STATE;
+					break;
+
+				default :
+					break;
+			}
 		}
 
-		$first = ($page - 1) * $offset;
-		$total = $this -> role -> total($array_where, $array_like);
-		$result['total'] = $total;
-		$rows = $this -> role -> get_role($select, $array_where, $array_like, $first, $offset, $order_by);
-		if ($rows != null) {
-			$result['rows'] = $rows;
-		} else {
-			$result['rows'] = 0;
+		if ($this -> input -> get('key_q') && $this -> input -> get('q')) {
+			$key_q = $this -> input -> get('key_q');
+			$q = $this -> input -> get('q');
+			switch ($key_q) {
+				case 'id' :
+					$where['id'] = $q;
+					break;
+
+				case 'name' :
+					$like['name'] = $q;
+					break;
+				default :
+					break;
+			}
 		}
-		echo json_encode($result);
+
+		$page = $this -> input -> get('page') ? $this -> input -> get('page') : 1;
+		$order = $this -> input -> get('order') ? $this -> input -> get('order') : 'ASC';
+		$per_page = $this -> input -> get('per_page') ? $this -> input -> get('per_page') : 5;
+
+		$data['role_list'] = $this -> Role_model -> get_role("*", $where, $like, ($page - 1) * $per_page, $per_page, array('id' => $order));
+		$data['base_url'] = base_url() . 'admin/dash_board/role/?order=' . $order;
+		$data['sort'] = $order;
+		$data['next_sort'] = $order == 'ASC' ? 'DESC' : 'ASC';
+
+		//pagination
+		$config['base_url'] = $data['base_url'];
+		$config['per_page'] = $per_page;
+		$config = array();
+		$config['total_rows'] = $this -> Role_model -> total(array(), array());
+		$this -> pagination -> initialize($config);
+		$data['page_link'] = $this -> pagination -> create_links();
+		//end pagination
+
+		$data['add_link'] = base_url() . "admin/role/add";
+		$data['title'] = "Vai trò";
+		$this -> load -> view('back_end/main_role', $data);
 	}
+
+	function add() {
+		$data['title'] = "Thêm";
+		if (isset($_POST['txtRole'])) {
+			$txtRole = strval($this -> input -> post('txtRole'));
+			$this -> load -> model('Role_model');
+			$data_array = array('name' => $txtRole, 'last_update' => date('Y-m-d H:i:s', time()), 'state' => 1);
+			$this -> Role_model -> insert_role($data_array);
+			$data['alert_state'] = 'success';
+			$data['alert_msg'] = ADD_SUCCESS_MSG;
+
+		}
+		$this -> load -> view('back_end/form/frmAddRole', $data);
+	}
+
+	function edit() {
+		$data['title'] = "Sửa";
+		if ($this -> uri -> segment(4)) {
+			$id = intval($this -> uri -> segment(4));
+			if ($id) {
+				$this -> load -> model('Role_model');
+				if (isset($_POST['txtRole']) && isset($_POST['txtState'])) {
+					$txtRole = strval($this -> input -> post('txtRole'));
+					$txtState = $_POST['txtState'];
+					$this -> Role_model -> update_role(array('name' => $txtRole, 'state' => $txtState, 'last_update' => date("Y-m-d H:i:s", time())), array('id' => $id));
+					$data['alert_state'] = 'success';
+					$data['alert_msg'] = 'Thay đổi thành công';
+					$data['role'] = $this -> Role_model -> get_role_by_id($id);
+					if ($data['role'] != null) {
+						$this -> load -> view('back_end/form/frmEditRole', $data);
+					}
+				} else {
+					$data['role'] = $this -> Role_model -> get_role_by_id($id);
+					if ($data['role'] != null) {
+						$this -> load -> view('back_end/form/frmEditRole', $data);
+					}
+				}
+			}
+		}
+	}
+
+	function checkRoleExist() {
+		echo "true";
+	}
+
 }
 ?>

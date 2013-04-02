@@ -1,5 +1,5 @@
 			<footer>
 				<p>
-				  Bản quyền thuộc công ty cổ phần truyền thông cận cảnh
+				  Bản quyền thuộc về Nguyễn Thành Luân - Công ty cổ phần truyền thông cận cảnh
 				</p>
 			</footer>

@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('database','session','pagination');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array();
+$autoload['helper'] = array('url','text','trim_text','date_time_convert');
 
 
 /*
@@ -108,9 +108,7 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('model1', 'model2');
 |
 */
-
 $autoload['model'] = array();
-
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

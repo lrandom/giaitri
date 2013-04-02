@@ -1,4 +1,4 @@
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -68,23 +68,6 @@
 
 							<li class="dropdown">
 								<a href="#contact">Chuyên mục</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a> Quản lí chuyên mục </a>
-									</li>
-									<li>
-										<a>12 cung hoàng đạo</a>
-									</li>
-									<li>
-										<a>Truyện cười</a>
-									</li>
-									<li>
-										<a>Ảnh vui</a>
-									</li>
-									<li>
-										<a>Video</a>
-									</li>
-								</ul>
 							</li>
 
 							<li class="dropdown">
