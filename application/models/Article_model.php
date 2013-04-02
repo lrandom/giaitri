@@ -43,7 +43,16 @@ class Article_model extends CI_Model {
 		$query -> free_result();
 		return $rows[0] -> total;
 	}
+	function get_article_cat_id($id,$first,$offset){
 
+		$select = '*,articles.id as id';
+		$arr_where = array('articles.state' => ACTIVED_STATE, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
+		$arr_like = array();
+		$order_by = array('articles.id' => 'DESC');
+		$data = $this -> get_article($select, $arr_where, $arr_like, $first, $offset, $order_by);
+		return $data;
+
+	}
 	function get_article_by_id($id) {
 		$select = '*,articles.id as id';
 		$array_where = array('articles.id' => $id);
@@ -77,12 +86,12 @@ class Article_model extends CI_Model {
 		return $this -> db -> insert_id();
 	}
 
-	public function remove_article($arr_where) {
+	function remove_article($arr_where) {
 		$this -> db -> where($arr_where);
 		$this -> db -> delete('articles');
 	}
 
-	public function remove_article_by_id($id) {
+	function remove_article_by_id($id) {
 		$array_where = array('id' => $id);
 		$this -> remove_article($array_where);
 	}

@@ -31,6 +31,11 @@ class Categories_model extends CI_Model {
 			return null;
 		}
 	}
+	function get_top_menu($first,$offset){
+		$array_where=array('state' =>1);
+		$order_by = array('order_top_menu' => 'ASC');
+		return $this -> get_categories('*', $array_where, array(), $first,$offset, $order_by);
+	}
 
 	function total($array_where, $array_like) {
 		$this -> db -> select('count(*) as total');
@@ -54,7 +59,7 @@ class Categories_model extends CI_Model {
 	function get_categories_by_name($category_name, $first, $offset) {
 		$select = '*';
 		$array_where = array();
-		$array_like = array('name' => $id);
+		$array_like = array('name'=>$category_name);
 		$order_by = array();
 		return $this -> get_categories($select, $array_where, $array_like, $first, $offset, $order_by);
 	}
@@ -67,9 +72,9 @@ class Categories_model extends CI_Model {
 		return $this -> get_categories($select, $array_where, $array_like, $first, $offset, $order_by);
 	}
 	
-    function get_categories_availabel($first, $offset){
-    	return $this->get_categories('*', array('state'=>ACTIVED_STATE), array(),$first,$offset ,array('id'=>'DESC'));
-    }
+	function get_categories_availabel($first, $offset){
+		return $this->get_categories('*', array('state'=>ACTIVED_STATE), array(),$first,$offset ,array('id'=>'DESC'));
+	}
 
 	function insert_categories($data_array) {
 		$this -> db -> insert('categories', $data_array);
