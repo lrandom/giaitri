@@ -6,11 +6,25 @@ class Home extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		 $this -> load -> database();
 	}
 
 
 	function index(){
-		$this->load->view('welcome_message');
+		$this->load->model('Categories_model');
+		$data['menu'] = $this -> Categories_model ->get_top_menu(0,20);
+		$this -> load -> view('front_end/includes/header', $data);
+
+		$this->load->model('Article_model');
+        $data['new_img'] = $this -> Article_model -> get_article_cat_id(2,0,6);
+        $data['xu_huong'] = $this -> Article_model -> get_article_cat_id(15,0,4);
+        $data['funny'] = $this -> Article_model ->get_article_cat_id(20,0,8);
+		$this->load->view('front_end/content',$data);
+
+		$this->load->view('front_end/includes/sidebar');
+		$this->load->view('front_end/includes/slider');
+		$this->load->view('front_end/includes/footer');
+
 
 	}
 }
