@@ -18,8 +18,6 @@
 	position:absolute;
 	top:0px;
 	left:0px;
-	width:260px;
-	height:200px;
 }
 /* If an image is wrapped in a link */
 .nivoSlider a.nivo-imageLink {
@@ -39,7 +37,7 @@
 	display:block;
 	position:absolute;
 	z-index:50;
-	height:100px;
+	height:170px;
 }
 /* Caption styles */
 .nivo-caption {
@@ -83,13 +81,10 @@
 .nivo-controlNav a.active {
 	font-weight:bold;
 }
-.text-nivo a p:hover{
-	text-decoration:underline;
-	}
-.text-nivo a p {
+.text-nivo p {
 float: left;
-margin: 5px 0 0 15px;
-color: #fff;
+margin: -71px 100px 15px 0px;
+color: #333;
 font-size: 12px;
 font-weight: bold;
 }

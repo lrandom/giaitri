@@ -340,11 +340,11 @@
 					slice.css('top','0px');
 					if(i == settings.slices-1){
 						setTimeout(function(){
-							slice.animate({ height:'103px', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
+							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
 						}, (100 + timeBuff));
 					} else {
 						setTimeout(function(){
-							slice.animate({ height:'103px', opacity:'1.0' }, settings.animSpeed);
+							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed);
 						}, (100 + timeBuff));
 					}
 					timeBuff += 50;
@@ -362,11 +362,11 @@
 					slice.css('bottom','0px');
 					if(i == settings.slices-1){
 						setTimeout(function(){
-							slice.animate({ height:'103px', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
+							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
 						}, (100 + timeBuff));
 					} else {
 						setTimeout(function(){
-							slice.animate({ height:'103px', opacity:'1.0' }, settings.animSpeed);
+							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed);
 						}, (100 + timeBuff));
 					}
 					timeBuff += 50;
@@ -409,7 +409,7 @@
 				$('.nivo-slice', slider).each(function(){
 					var slice = $(this);
 					var origWidth = slice.width();
-					slice.css({ top:'0px', height:'103px', width:'0px' });
+					slice.css({ top:'0px', height:'100%', width:'0px' });
 					if(i == settings.slices-1){
 						setTimeout(function(){
 							slice.animate({ width:origWidth, opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
@@ -426,7 +426,7 @@
 			else if(settings.effect == 'fade' || vars.randAnim == 'fade'){
 				var i = 0;
 				$('.nivo-slice', slider).each(function(){
-					$(this).css('height','103px');
+					$(this).css('height','100%');
 					if(i == settings.slices-1){
 						$(this).animate({ opacity:'1.0' }, (settings.animSpeed*2), '', function(){ slider.trigger('nivo:animFinished'); });
 					} else {
