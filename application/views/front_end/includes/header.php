@@ -5,16 +5,15 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="<?php echo $path ;?>css/style.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="<?php echo $path ;?>jqplugin\nivoslider/nivo-slider.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="<?php echo $path ;?>css/blueberry.css" type="text/css" media="screen" />
   <title>Untitled Document</title>
-  <script type="text/javascript" src="<?php echo $path ;?>jqplugin\nivoslider/jquery.min.js" ></script>
-  <script type="text/javascript" src="<?php echo $path ;?>jqplugin\nivoslider/jquery.nivo.slider.js"></script>
-  <script type="text/javascript" src="<?php echo $path ;?>jqplugin\nivoslider/jquery-ui.min.js" ></script>
-  <script type="text/javascript" src="<?php echo $path ;?>jqplugin\nivoslider/jcarousellite_1.0.1.pack.js" ></script>
-  <script type="text/javascript" src="<?php echo $path ;?>js/captify.tiny.js"></script>
+  <script type="text/javascript" src="<?php echo $path ;?>js/jquery.min.js" ></script>
+  <script type="text/javascript" src="<?php echo $path ;?>js/jquery-ui.min.js" ></script>
+  <script type="text/javascript" src="<?php echo $path ;?>js/jquery.blueberry.js" ></script>
+
   <script type="text/javascript">
   $(document).ready(function(){
-    $("#featured > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 3000, true);
+    $("#featured > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
   });
   </script>
 </head>

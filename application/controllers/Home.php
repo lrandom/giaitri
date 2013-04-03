@@ -20,8 +20,11 @@ class Home extends CI_Controller {
         $data['xu_huong'] = $this -> Article_model -> get_article_cat_id(1,0,4);
         $data['funny'] = $this -> Article_model ->get_article_cat_id(4,0,6);
 		$this->load->view('front_end/content',$data);
+		
+		$this->load->model('Article_model');
+		$data['new']= $this -> Article_model ->get_article_by_new(0,6);
+		$this->load->view('front_end/includes/sidebar',$data);
 
-		$this->load->view('front_end/includes/sidebar');
 		$this->load->view('front_end/includes/slider');
 		$this->load->view('front_end/includes/footer');
 

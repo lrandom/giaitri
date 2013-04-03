@@ -16,7 +16,7 @@ class Article_model extends CI_Model {
 			$this -> db -> order_by($order, $sort);
 		}
 		$this -> db -> select($select);
-		$this -> db -> from('articles');
+		$this -> db -> from('articles,categories');
 		$this -> db -> where($array_where);
 		$this -> db -> like($array_like);
 		$this -> db -> limit($offset, $first);
@@ -46,12 +46,19 @@ class Article_model extends CI_Model {
 	function get_article_cat_id($id,$first,$offset){
 
 		$select = '*,articles.id as id';
-		$arr_where = array('articles.state' => ACTIVED_STATE, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
+		$arr_where = array('articles.state' => 1, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
 		$arr_like = array();
-		$order_by = array('articles.id' => 'DESC');
+		$order_by = array('date_post' => 'DESC');
 		$data = $this -> get_article($select, $arr_where, $arr_like, $first, $offset, $order_by);
 		return $data;
+	}
 
+	function get_article_by_new($first,$offset){
+		$select='*,articles.id as id,categories.name as name';
+		$arr_where = array('articles.state' => ACTIVED_STATE);
+		$arr_like= array();
+		$order_by= array('articles.id' => 'DESC');
+		$data = $this ->get_article($select, $arr_where, $arr_like, $first, $offset, $order_by);
 	}
 	function get_article_by_id($id) {
 		$select = '*,articles.id as id';
@@ -60,7 +67,6 @@ class Article_model extends CI_Model {
 		$order_by = array();
 		return $this -> get_article($select, $array_where, $array_like, 0, 1, $order_by);
 	}
-
 	function get_article_by_title($title, $first, $offset) {
 		return $this -> get_article('*,articles.id as id,users.id as user_id', array(), array('title' => $title), $first, $offset, array());
 	}

@@ -28,49 +28,71 @@
       
       <div id="news">
         <div id="featured" >
-          <ul class="ui-tabs-nav">
-            <?php
-            $sql=mysql_query(" SELECT* FROM slider LIMIT 3");
-            $demo=0;
-            while($row_tin = @mysql_fetch_array($sql)){
-             echo'
-             <li class="ui-tabs-nav-item" id="nav-fragment-'.$row_tin['id'].'">
-             <a href="#fragment-'.$row_tin['id'].'">
-             <img src="images/'.$row_tin['hinhnho'].'" width="167" height="145" />
-             <span class="feacher">20 Beautiful Long Exposure Photographs</span>
-             </a>
-             </li>';}
-             ?>
-           </ul>
-           <!-- First Content -->
-           <?php
-           $sql=mysql_query(" SELECT* FROM slider LIMIT 3");
-           $index=0;
-           while($row_tin2 = @mysql_fetch_array($sql)){
-             echo'
-             <div id="fragment-'.$row_tin2['id'].'" class="ui-tabs-panel ui-tabs-hide" style="">
-             <img src="images/'.$row_tin2['hinhlon'].'"  width="462" height="435"/>
-             <div class="info" >
-             <h2><a href="#" >'.$row_tin2['tieude'].'</a></h2>
-             <p>'.$row_tin2['mota'].'
-             <a href="#" >read more</a>
-             </p>
-             </div>
-           </div>';}?>
-         </div>
+      <ul class="ui-tabs-nav">
+          
+          <li class="ui-tabs-nav-item" id="nav-fragment-1">
+              <a href="#fragment-1">
+                  <img src="<?php echo $path ;?>public/images/image1-small.jpg" width="167" height="145" />
+                    <span>20 Beautiful Long Exposure Photographs</span>
+              </a>
+            </li>
+          <li class="ui-tabs-nav-item" id="nav-fragment-2">
+              <a href="#fragment-2">
+                  <img src="<?php echo $path ;?>public/images/image2-small.jpg" width="167" height="145" />
+                    <span>20 Beautiful Long Exposure Photographs</span>
+              </a>
+            </li>
+          <li class="ui-tabs-nav-item" id="nav-fragment-3">
+              <a href="#fragment-3">
+                  <img src="<?php echo $path ;?>public/images/image3-small.jpg" width="167" height="145" />
+                    <span>20 Beautiful Long Exposure Photographs</span>
+              </a>
+            </li>           </ul>
+      <!-- First Content -->
+         
+            <div id="fragment-1" class="ui-tabs-panel ui-tabs-hide" style="">
+      <img src="<?php echo $path ;?>public/images/image1.jpg"  width="462" height="435"/>
+       <div class="info" >
+        <h2><a href="#" >Cảnh sát chống bạo động khống chế kẻ dọa..</a></h2>
+        <p>Sau 4 tiếng cố thủ trong vòng vây của hơn 100 cảnh sát, kẻ tưới đẫm xăng dọa tự thiêu
+                    <a href="#" >read more</a>
+                </p>
+           </div>
+      </div>
+            <div id="fragment-2" class="ui-tabs-panel ui-tabs-hide" style="">
+      <img src="<?php echo $path ;?>public/images/image2.jpg"  width="462" height="435"/>
+       <div class="info" >
+        <h2><a href="#" >Hot girl Sài Gòn nhập vai thiếu nữ H’Mông..</a></h2>
+        <p>Đan Cha và Bảo Ngọc, hai ứng viên sáng giá của Miss Teen 2010, chia sẻ những trải nghiệm lý thú
+                    <a href="#" >read more</a>
+                </p>
+           </div>
+      </div>
+            <div id="fragment-3" class="ui-tabs-panel ui-tabs-hide" style="">
+      <img src="<?php echo $path ;?>public/images/image3.jpg"  width="462" height="435"/>
+       <div class="info" >
+        <h2><a href="#" >Lindsay Lohan đâm xe vào nôi em bé..</a></h2>
+        <p>Có nhân chứng khẳng định, hôm 1/9, Lindsay lơ đễnh đâm vào xe nôi chở em bé do một cô trông trẻ đẩy qua đường
+                    <a href="#" >read more</a>
+                </p>
+           </div>
+      </div>  </div>
+
          <div id="Wrapper">
           <?php
+          $index=0;
           if($new_img!=null){
             foreach ($new_img as $r) {
               echo '<div class="sumary">
               <div class="image">
-              <img src="'.$r-> thumb .'" width="178" height="148">
+              <img src="../resources/images/1.jpg" width="178" height="148">
               <dd class="tittle">
-              <a href="#"><p>'.$r -> title.'</p></a></dd>
+              <a href="#"><p>'.$r -> id.'</p></a></dd>
               </div>
               </div>';
             }
           }
+          $index++;
           ?>
  
         </div><!--end Wrapper-->
@@ -82,7 +104,7 @@
 
             <div class="img-xu-huong"> 
             <a href="#"> 
-            <img src="'.$r -> thumb .'" />
+            <img src="../resources/images/2.jpg" />
             <p>'.$r -> title.'</p>
             </a> </div>
             ';
@@ -93,15 +115,16 @@
 
       <div id="funny">
         <?php
+         if($funny!=null){
         foreach ($funny as $r) {
           echo ' <div class="news-funny"> 
-          <a href="#"> <i><img src="<?php echo $path ;?>resources/cn/funny/img-funny.png" /></i>
-          <h4>Học từ đâu ra?</h4>
+          <a href="#"> <i><img src="../resources/images/3.jpg" /></i>
+          <h4>'.$r -> author.'</h4>
           <p>'.$r -> title.'</p>
         </a> 
          </div>
   <!--end news-funny-->
-  '; 
+  ';   }
       }
       ?>
 
