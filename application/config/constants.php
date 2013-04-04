@@ -46,7 +46,7 @@ if (!defined('BASEPATH'))
  define('PROJECT_TITLE', 'THUGIAN');
  define('ACTIVED_STATE', 1);
  define('DISABLED_STATE', 0);
- define('SESS_LOGIN_KEY', 'user_loged');
+ define('LOGIN_KEY_SESSION', 'user_loged');
 
  /*Define exception view*/
  define('NOT_FOUND_VIEW', '');
@@ -55,17 +55,18 @@ if (!defined('BASEPATH'))
  /*End*/
 
  /*Define role code */
- define('ACC_ROLE', 'acc_role');
- define('ACC_USER', 'acc_user');
- define('ACC_APP', 'acc_app');
- define('ACC_CATEGORY', 'acc_cat');
- define('ACC_COMMENT', 'acc_comment');
- define('ACC_LOGO', 'acc_logo');
- define('ACC_SETTING', 'acc_setting');
- define('ACC_BANNER', 'acc_banner');
- define('ACC_FILLE', 'acc_file');
- define('ACC_STATISTIC', 'acc_statistic');
-/*end*/
+ define('PROLES', 'roles');
+ define('PUSERS', 'users');
+ define('PFUNCS', 'funcs');
+ define('PPERM', 'permission');
+ define('PCATEGORIES', 'categories');
+ define('PCOMMENTS', 'comments');
+ define('PLOGOS', 'logos');
+ define('PSETTINGS', 'setting');
+ define('PBANNERS', 'banners');
+ define('PFILLES', 'files');
+ define('PSTATISTICS', 'statistics');
+ /*end*/
 
  /*Define CRUD messager*/
  define('ADD_SUCCESS_MSG', 'Thêm thành công');
@@ -93,12 +94,12 @@ if (!defined('BASEPATH'))
 
  /*define default thumbnail path*/
  define('THUMB_DEFAULT_PATH','resources/no_thumb.jpg');
-/*end*/
+ /*end*/
 
 
  /*define root folder application*/
  define('ROOT_FOLDER_APP', $_SERVER['DOCUMENT_ROOT'] . '/giaitri/');
-/*end define*/
+ /*end define*/
 
  /*define folder upload*/
  define('PATH_UPLOAD_FOLDER', 'uploads');
@@ -110,13 +111,13 @@ if (!defined('BASEPATH'))
  define('PATH_ADVER_FOLDER', 'uploads/articles/advers');
  define('PATH_LOGO_FOLDER', 'uploads/logos');
  define('THUMB_FOLDER','thumb');
-/*end define*/
+ /*end define*/
 
  /*define type upload label*/
  define('IMAGE_UPLOAD_LABEL','image');
  define('THUMB_UPLOAD_LABEL','thumb');
  define('VIDEO_UPLOAD_LABEL','video');
-/*end define*/
+ /*end define*/
 
  /*define allow type upload*/
  define('VIDEO_UPLOAD_MIME','mp4|flv|3gp');
@@ -129,6 +130,18 @@ if (!defined('BASEPATH'))
  define('IMAGE_UPLOAD_MAX_FILE_SIZE',3);//3mb
  /*end define*/
 
-/*define specical view path*/
-define('LOGIN_FAILED_VIDEW', '');
-define('404_VIEW','');
+ /*define specical view path*/
+ define('LOGIN_FAILED_VIDEW', '');
+ define('404_VIEW','');
+
+ /*define CRUD KEY*/
+ define('CRUD_CREATE',1);
+ define('CRUD_READ',2);
+ define('CRUD_UPDATE',3);
+ define('CRUD_DELETE', 4);
+
+ /*define CRUD LABEL*/
+ define('CRUD_CREATE_LABEL','Thêm mới');
+ define('CRUD_READ_LABEL','Xem');
+ define('CRUD_UPDATE_LABEL','Sửa');
+ define('CRUD_DELETE_LABEL','Xóa');

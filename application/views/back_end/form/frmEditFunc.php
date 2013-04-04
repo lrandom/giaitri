@@ -6,8 +6,7 @@ $CI = &get_instance();
 	<?php
 	$CI -> load -> view('back_end/includes/header.php');
 	?>
-
-	<body>
+   <body>
 		<?php
 		$CI -> load -> view('back_end/includes/nav_menu');
 		?>

@@ -7,16 +7,20 @@ class Perm_model extends CI_Model {
 		parent::__construct();
 	}
 
-	public function get_perm($select, $array_where, $array_like, $first, $offset, $order_by, $join_table_app = FALSE) {
+	public function get_perm($select, $array_where, $array_like, $first, $offset, $order_by, $join_table_roles =FALSE,$join_table_funcs = FALSE) {
 		$data = array();
 		$order = key($order_by);
 		if ($order != null) {
 			$sort = $order_by[$order];
 			$this -> db -> order_by($order, $sort);
 		}
-		if ($join_table_app) {
+		if($join_table_roles){
+			$this->db->join('roles', 'perms.role_id=roles.id', 'left');
+		}
+        if ($join_table_funcs) {
 			$this -> db -> join('funcs', 'perms.func_id=funcs.id', 'left');
 		}
+
 		$this -> db -> select($select);
 		$this -> db -> from('perms');
 		$this -> db -> where($array_where);

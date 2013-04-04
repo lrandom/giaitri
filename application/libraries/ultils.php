@@ -95,8 +95,10 @@ class Ultils {
 		$new_word = str_replace(' ', '-', strtolower($word));
 		return $new_word;
 	}
-
-
+	
+	static function _encrypt_password($password){
+		return md5(md5($password));
+	}
 }
 
 /* End of file phpthumb_lib.php */
