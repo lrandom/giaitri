@@ -72,8 +72,12 @@ class Categories_model extends CI_Model {
 		return $this -> get_categories($select, $array_where, $array_like, $first, $offset, $order_by);
 	}
 	
-	function get_categories_availabel($first, $offset){
-		return $this->get_categories('*', array('state'=>ACTIVED_STATE), array(),$first,$offset ,array('id'=>'DESC'));
+	function get_categories_availabel(){
+		$select='*,categories.id as id';
+		$array_where = array('state' => 1);
+		$array_like = array();
+		$order_by = array('categories.id' => 'DESC');
+		return $this -> get_categories($select,$array_where,$array_like, 0, 100 ,$order_by);
 	}
 
 	function insert_categories($data_array) {

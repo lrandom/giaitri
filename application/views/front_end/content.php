@@ -29,54 +29,40 @@
       <div id="news">
         <div id="featured" >
       <ul class="ui-tabs-nav">
-          
-          <li class="ui-tabs-nav-item" id="nav-fragment-1">
-              <a href="#fragment-1">
-                  <img src="<?php echo $path ;?>public/images/image1-small.jpg" width="167" height="145" />
-                    <span>20 Beautiful Long Exposure Photographs</span>
+          <?php
+          if ($focus_new != null) {
+          foreach ($focus_new as $r) {
+            echo '
+          <li class="ui-tabs-nav-item" id="nav-fragment-'. $r -> id .'">
+              <a href="#fragment-'. $r -> id.'">
+                  <img src="../resources/images/image1-small.jpg" width="167" height="145" />;
+                  <span>'.trim_text(htmlspecialchars_decode($r -> title),10).'</span>;
               </a>
-            </li>
-          <li class="ui-tabs-nav-item" id="nav-fragment-2">
-              <a href="#fragment-2">
-                  <img src="<?php echo $path ;?>public/images/image2-small.jpg" width="167" height="145" />
-                    <span>20 Beautiful Long Exposure Photographs</span>
-              </a>
-            </li>
-          <li class="ui-tabs-nav-item" id="nav-fragment-3">
-              <a href="#fragment-3">
-                  <img src="<?php echo $path ;?>public/images/image3-small.jpg" width="167" height="145" />
-                    <span>20 Beautiful Long Exposure Photographs</span>
-              </a>
-            </li>           </ul>
+            </li>'
+            ;
+          }
+          }
+          ?>
+          </ul>
       <!-- First Content -->
-         
-            <div id="fragment-1" class="ui-tabs-panel ui-tabs-hide" style="">
-      <img src="<?php echo $path ;?>public/images/image1.jpg"  width="462" height="435"/>
+          <?php
+          if ($focus_new != null) {
+         foreach ($focus_new as $r) {
+            echo '
+        <div id="fragment-'. $r -> id .'" class="ui-tabs-panel ui-tabs-hide" style="">
+      <img src="../resources/images/image1-small.jpg"  width="462" height="435"/>
        <div class="info" >
-        <h2><a href="#" >Cảnh sát chống bạo động khống chế kẻ dọa..</a></h2>
-        <p>Sau 4 tiếng cố thủ trong vòng vây của hơn 100 cảnh sát, kẻ tưới đẫm xăng dọa tự thiêu
-                    <a href="#" >read more</a>
+        <h2><a href="#" >'.trim_text(htmlspecialchars_decode($r -> title),10).'</a></h2>
+        <p>'.trim_text(htmlspecialchars_decode($r -> content),10).'
+                  <a href="#"  style="color:red";>Read more</a>      
                 </p>
            </div>
-      </div>
-            <div id="fragment-2" class="ui-tabs-panel ui-tabs-hide" style="">
-      <img src="<?php echo $path ;?>public/images/image2.jpg"  width="462" height="435"/>
-       <div class="info" >
-        <h2><a href="#" >Hot girl Sài Gòn nhập vai thiếu nữ H’Mông..</a></h2>
-        <p>Đan Cha và Bảo Ngọc, hai ứng viên sáng giá của Miss Teen 2010, chia sẻ những trải nghiệm lý thú
-                    <a href="#" >read more</a>
-                </p>
-           </div>
-      </div>
-            <div id="fragment-3" class="ui-tabs-panel ui-tabs-hide" style="">
-      <img src="<?php echo $path ;?>public/images/image3.jpg"  width="462" height="435"/>
-       <div class="info" >
-        <h2><a href="#" >Lindsay Lohan đâm xe vào nôi em bé..</a></h2>
-        <p>Có nhân chứng khẳng định, hôm 1/9, Lindsay lơ đễnh đâm vào xe nôi chở em bé do một cô trông trẻ đẩy qua đường
-                    <a href="#" >read more</a>
-                </p>
-           </div>
-      </div>  </div>
+      </div>'
+        ;
+          }
+          }
+          ?>
+    </div>
 
          <div id="Wrapper">
           <?php
@@ -87,7 +73,7 @@
               <div class="image">
               <img src="../resources/images/1.jpg" width="178" height="148">
               <dd class="tittle">
-              <a href="#"><p>'.$r -> id.'</p></a></dd>
+              <a href="#"><p>'.$r -> title.'</p></a></dd>
               </div>
               </div>';
             }
@@ -119,7 +105,7 @@
         foreach ($funny as $r) {
           echo ' <div class="news-funny"> 
           <a href="#"> <i><img src="../resources/images/3.jpg" /></i>
-          <h4>'.$r -> author.'</h4>
+          <h4>'.$r -> source.'</h4>
           <p>'.$r -> title.'</p>
         </a> 
          </div>
