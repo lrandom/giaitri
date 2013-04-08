@@ -25,7 +25,7 @@ class Home extends CI_Controller {
 		$this->load->model('Article_model');	
 		$data['view']=$this-> Article_model->get_focus_new(1);
 		$data['slider_sibar']=$this -> Article_model -> get_article_cat_id(2,0,3);
-		$data['top_view']= $this-> Article_model->get_article_cat_id_2(2,0,6);
+		$data['top_view']= $this-> Article_model->get_new_view($id,0,6);
 		$this->load->view('front_end/includes/sidebar',$data);
 
 		$this->load->view('front_end/includes/slider',$data);
