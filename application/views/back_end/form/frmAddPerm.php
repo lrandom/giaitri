@@ -51,7 +51,7 @@ $CI -> load -> view('back_end/includes/header.php');
      </div>
 
      <div class="control-group">
-      <label class="control-label" for="txtCat">Cho phép</label>
+      <label class="control-label" for="crud">Cho phép</label>
       <div class="controls">
         <div id="cat-wrap" style="height: 150px; width: 300px ;overflow-y:scroll; background: #FFFFFF; border: 1px solid #CCCCCC; padding: 5px">
           <div>

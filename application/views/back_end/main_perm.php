@@ -7,10 +7,10 @@ $CI = &get_instance();
 $CI -> load -> view('back_end/includes/header.php');
 ?>
 <body>
-   <?php
-   $CI -> load -> view('back_end/includes/nav_menu');
-   ?>
-   <div class="container-fluid wrapper">
+ <?php
+ $CI -> load -> view('back_end/includes/nav_menu');
+ ?>
+ <div class="container-fluid wrapper">
     <h4>Thay đổi quyền truy cập</h4>
     <div class="navbar">
         <div class="navbar-inner">
@@ -22,7 +22,7 @@ $CI -> load -> view('back_end/includes/header.php');
                 <div class="input-append">
                     <select class="btn option-search">
                         <option value="id">ID</option>
-                        <option value="role_name">Tên vai trò</option>
+                        <option value="func_name">Tên vai trò</option>
                     </select>
                     <input class="span2 input-medium search-query" id="appendedInputButton" type="text">
                     <script type="text/javascript">
@@ -39,19 +39,22 @@ $CI -> load -> view('back_end/includes/header.php');
                     </script>
                 </div>
             </div>
+            <div class="btn-group">
+                <a href="<?php echo $all_link; ?>" class='btn'>Tất cả</a>
+            </div>
         </div>
     </div>
     <!--show alert messager-->
     <?php
     if(isset($alert_state)){
-     ?>
-     <div class='alert alert-<?php echo $alert_state; ?>'>
+       ?>
+       <div class='alert alert-<?php echo $alert_state; ?>'>
         <button type="button" class="close" data-dismiss="alert">
-           &times;
-       </button>
-       <?php echo $alert_msg; ?>
-   </div>
-   <?php
+         &times;
+     </button>
+     <?php echo $alert_msg; ?>
+ </div>
+ <?php
 }
 ?>
 <!--end show alert messager-->
@@ -94,8 +97,15 @@ $CI -> load -> view('back_end/includes/header.php');
                             </td>
                             <td>
                                 <?php 
-                                 
+                                $r->perm=str_replace(CRUD_CREATE,'<a href="javascript:;">'.CRUD_CREATE_LABEL.'</a>-', $r->perm);
 
+                                $r->perm=str_replace(CRUD_READ,'<a href="javascript:;">'.CRUD_READ_LABEL.'</a>-', $r->perm);
+
+                                $r->perm=str_replace(CRUD_UPDATE,'<a href="javascript:;">'.CRUD_UPDATE_LABEL.'</a>-', $r->perm);
+
+                                $r->perm=str_replace(CRUD_DELETE,'<a href="javascript:;">' .CRUD_DELETE_LABEL.'</a>-', $r->perm);
+                                $r->perm=rtrim($r->perm,'-');
+                                echo $r->perm;
                                 ?>
                             </td>
                             <td>
@@ -104,20 +114,14 @@ $CI -> load -> view('back_end/includes/header.php');
                                 ?>
                             </td>
                             <td>
-                                <a class="btn btn-info"  href="<?php echo $edit_link; ?>">
+                                <a class="btn btn-info"  href="<?php echo $edit_link.$r->id.'/'.$role_id ?>">
                                     <?php echo EDIT_LABEL ?></a>
                                 </td>
                                 <td>
 
-                                    <a class="btn btn-danger" href="<?php echo $delete_link; ?>" onclick='return confirm("Bạn thực sự muốn xóa?")'>
+                                    <a class="btn btn-danger" href="<?php echo $delete_link.$r->id; ?>" onclick='return confirm("Bạn thực sự muốn xóa?")'>
                                         <?php echo DELETE_LABEL ?></a>
 
-                                    </td>
-                                    <td>
-
-                                        <a class="btn btn btn-info" href="
-                                        <?php echo $change_perm_link ?>">
-                                        Thay đổi quyền hạn</a> 
                                     </td>
                                 </tr>
 

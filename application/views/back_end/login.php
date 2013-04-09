@@ -103,11 +103,15 @@ body {
 
 			<!-- remember me -->
 			<label class="checkbox">
-				<input type="checkbox" value="remember_me" name="remember_me" id="remember_me">Remember me</label>
-                <span class="error"><?php if(isset($error_msg)) {echo $error_msg;} ?></span>
-				<button class="btn" type="submit">Đăng nhập</button>
-			</form>
-		</div>
-		<!--end container -->
-	</body>
-	</html>
+				<input type="checkbox" value="remember_me" name="remember_me" id="remember_me">Remember me
+			</label>
+            <span class="error"><?php if(isset($error_msg)) {echo $error_msg;} ?></span>
+
+
+			<button class="btn" type="submit">Đăng nhập</button>
+
+		</form>
+	</div>
+	<!--end container -->
+</body>
+</html>
