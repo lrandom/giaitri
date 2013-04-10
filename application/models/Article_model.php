@@ -53,52 +53,48 @@ class Article_model extends CI_Model {
 		return $data;
 	}
 	function get_article_cat_id_2($id,$first,$offset){
-	$select = '*,articles.id as id';
-	$arr_where = array('articles.state' => 1, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
+		$select = '*,articles.id as id';
+		$arr_where = array('articles.state' => 1, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
 		$arr_like = array();
-	$order_by = array('views_count' => 'DESC');
+		$order_by = array('articles.id' => 'DESC');
 		$data = $this -> get_article($select, $arr_where, $arr_like, $first, $offset, $order_by);
 		return $data;
+		
+	}
 
-	 }
+	function get_focus_new($number_of_news){
+		$CI =& get_instance();
+		$subject=$CI->Categories_model->get_categories_availabel();
+		$data=null;
+		foreach ($subject as $r) {
+			$id=$r->id;
+			$new=$this->get_article_cat_id_2($id,0,1);
+			if ($new!=null) {
+				$data[]=$new;
+			}
+		}
+		$tmp=null;
+		$count=count($data);
 
-	 function get_focus_new($number_of_news){
-	 	$CI =& get_instance();
-	 	$subject=$CI->Categories_model->get_categories_availabel();
-	 	$data=null;
-	 	foreach ($subject as $r) {
-	 		$id=$r->id;
-	 		$new=$this->get_article_cat_id_2($id,0,1);
-	 		if ($new!=null) {
-	 			$data[]=$new;
-	 		}
-	 	}
-	 	$tmp=null;
-	 	$count=count($data);
-
-	 	for ($i=0; $i <($number_of_news-1) ; $i++) { 
-	 	for ($ii=($i+1); $i <$number_of_news ; $ii++) { 
-	 		if (($data[$ii][0]->views_count)>($data[$i][0]->views_count)) {
-	 			$tmp=$data[$i];
-	 			$data[$i]=$data[$ii];
-	 			$data[$ii]=$tmp;
-	 		}
-	 	}
-	 	}
-	 	return $data;
-   }
-   public function get_new_view($id,$first,$offset){
-   	$select = 'articles.id as';
-   	$array_where = array('articles.state' => 1, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
-   	$array_like = array();
-   	$order_by = array('articles.views_count' => 'DESC');
-   	return $this->get_article($select,$array_where,$array_like,$first,$offset,$order_by);
-   	if ($data !=null) {
-   		foreach ($data as $r) {
-   			$r -> cat_id = $id;
-   		}
-   	}
-   }
+		for ($i=0; $i <($number_of_news-1) ; $i++) { 
+			for ($ii=($i+1); $i <$number_of_news ; $ii++) { 
+				if (($data[$ii][0]->id)>($data[$i][0]->id)) {
+					$tmp=$data[$i];
+					$data[$i]=$data[$ii];
+					$data[$ii]=$tmp;
+				}
+			}
+		}
+		return $data;
+	}
+	public function get_new_view($id,$first,$offset){
+		$select = '*,articles.id as id';
+		$arr_where = array('articles.state' => 1, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
+		$arr_like = array();
+		$order_by = array('views_count' => 'DESC');
+		$data = $this -> get_article($select, $arr_where, $arr_like, $first, $offset, $order_by);
+		return $data;
+	}
 	function get_article_by_id($id) {
 		$select = '*,articles.id as id';
 		$array_where = array('articles.id' => $id);

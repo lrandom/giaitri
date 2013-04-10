@@ -97,11 +97,11 @@
 
     #header #text-search:focus
     {
-       outline: none;
-   }
+     outline: none;
+ }
 
-   #header #button-search
-   {
+ #header #button-search
+ {
     width:14px;
     height:14px;
     border:none;
@@ -289,15 +289,16 @@
     overflow:hidden;
 }
 #featured{ 
-    width:629px; 
+    width:629cpx; 
     padding-right:20px; 
     position:relative;
-    height:455px; 
+    height:435px; 
+    margin-bottom: 20px;
 }
 #featured ul.ui-tabs-nav{ 
     position: absolute;
     top: 0;
-    left: 460px;
+    left: 461px;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -316,7 +317,7 @@
     float:left;
     border:1px solid #eee;
 }
-#featured span{ 
+#featured ul span{ 
     width: 167px;
     height: 40px;
     font-size:14px; 
@@ -343,12 +344,13 @@
 #featured .ui-tabs-panel{ 
     width:400px; 
     height:250px; 
+    background:#999; 
     position:relative;
-    float: left;
+    left: -103px;
 }
 #featured .ui-tabs-panel .info{ 
-    width:462px;
-    height:79px;
+    width:460px;
+    height:80px;
     position: absolute;
     background: -webkit-linear-gradient(top,rgba(69,69,69,0.7) 0%,rgba(33,32,31,0.8) 100%);
     background: -moz-linear-gradient(top,rgba(69,69,69,0.7) 0%,rgba(33,32,31,0.8) 100%);
@@ -379,6 +381,9 @@
 }
 #featured .info a:hover{ 
     text-decoration:underline; 
+}
+#featured .ui-tabs-hide img{
+
 }
 #featured .ui-tabs-hide{ 
     display:none; 
@@ -527,9 +532,9 @@
 
 .img-xu-huong img
 {
- margin:9px; 
- width: 120px;
- height: 90px;
+   margin:9px; 
+   width: 120px;
+   height: 90px;
 }
 
 .img-xu-huong a
@@ -619,17 +624,6 @@
 {
     float:left;
     font-size:11px;
-}
-
-.text-slide p span
-{
-    color:#e00000;
-}
-
-.next
-{
-    background:url(img/content/slide/icon-button.png) 43px;
-    right:0px;
 }
 
 .shadow-content
@@ -919,7 +913,7 @@ a:link {
 	height: 160px;
 	width: 980px;
 	margin: 30px auto;
-	background-image:url(images/noise-xu-huong.png);
+	background-image:url(../resources/images/noise-xu-huong.png);
 	overflow: hidden;
     position: relative;
 }
@@ -945,7 +939,7 @@ a:link {
     left: -850px;
 }
 .slider ul li a {
-	background-image:url(../images/box-shadow-slide.png);
+	background-image:url(../resources/images/box-shadow-slide.png);
 	float: left;
     width: 115px;
     height: 80px;
@@ -973,49 +967,53 @@ a:link {
 	-o-transition: all linear 0.3s;
 	-ms-transition: all linear 0.3s;
 }
-.prev {
+.prev{
 	background: url(../resources/icon-button.png) 0px;
 	position: absolute;
 	width: 43px;
 	height: 42px;
 	border: none;
-	top: 45px;
+	top: 55px;
 }
-.next {
+.next{
 	position: absolute;
 	width: 43px;
 	height: 42px;
 	border: none;
-	top: 45px;
+	top: 55px;
 	background: url(../resources/icon-button.png) 43px;
+    left: 935px;
+}
+.text p span{
+    color: red;
 }
 /************************************************
 	      CAPTIFY CAPTION		
-          ************************************************/
-          .caption-top, .caption-bottom {
-           background: #000000;
-           color: #ffffff;
-           cursor: default;
-           padding: 2px;
-           font-size: 11px;
-           text-align: center;
-       }
-       .caption-top {
-           border-width: 0px;
-       }
-       .caption-bottom {
-           border-width: 0px;
-       }
-       .caption a, .caption a {
-           background: #000;
-           border: none;
-           text-decoration: none;
-           padding: 2px;
-       }
-       .caption a:hover, .caption a:hover {
-           background: #202020;
-       }
-       .view-left{
+        ************************************************/
+        .caption-top, .caption-bottom {
+         background: #000000;
+         color: #ffffff;
+         cursor: default;
+         padding: 2px;
+         font-size: 11px;
+         text-align: center;
+     }
+     .caption-top {
+         border-width: 0px;
+     }
+     .caption-bottom {
+         border-width: 0px;
+     }
+     .caption a, .caption a {
+         background: #000;
+         border: none;
+         text-decoration: none;
+         padding: 2px;
+     }
+     .caption a:hover, .caption a:hover {
+         background: #202020;
+     }
+     .view-left{
         width: 72px;
         float: left;
 
@@ -1026,13 +1024,13 @@ a:link {
       overflow: hidden;
   }
   .text {
-   float: left;
-   padding: 10.5px;
+     float: left;
+     padding: 10.5px;
 
-}
-.text h4 {
-	font-size: 12px;
-	font-weight: bold;
+ }
+ .text h4 {
+   font-size: 12px;
+   font-weight: bold;
 }
 .text h4:hover {
 	text-decoration: underline;
@@ -1042,7 +1040,7 @@ a:link {
 	font-size: 11px;
     margin-left: 5px;
 }
-.text p span {
+.view-right .text p span {
 	color: #fff;
 }
 

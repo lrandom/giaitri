@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url() ?>cssframework/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url() ?>cssframework/bootstrap/css/bootstrap-responsive.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/admin/main.css">
-<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>cssframework/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {

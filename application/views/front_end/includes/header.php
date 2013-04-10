@@ -1,5 +1,4 @@
 <?php $path = base_url();?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,34 +9,33 @@
   <script type="text/javascript" src="<?php echo $path ;?>js/jquery.min.js" ></script>
   <script type="text/javascript" src="<?php echo $path ;?>js/jquery-ui.min.js" ></script>
   <script type="text/javascript" src="<?php echo $path ;?>js/jquery.blueberry.js" ></script>
+  <script type="text/javascript" src="<?php echo $path ;?>js/jcarousellite_1.0.1.pack.js"></script>
+  <script type="text/javascript" src="<?php echo $path ;?>js/captify.tiny.js"></script>
+  
 
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $("#featured > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
-  });
-  </script>
+  
 </head>
 
 <body>
   <div id="header">
     <div id="nav">
-    <div id="logo"> <a href="#"><img src="<?php echo $path ;?>resources/header/logo.png" /></a> </div>
-    <!--end logo-->
+      <div id="logo"> <a href="#"><img src="<?php echo $path ;?>resources/header/logo.png" /></a> </div>
+      <!--end logo-->
 
-    <ul>
-      <?php
-      if($menu!=null){
-      foreach ($menu as $r) {
-       echo '
-      <li>
-        <a href="#">'.$r -> name .'</a>
-      </li> 
-      '; 
-      }
-    }
-      ?>
-    </ul>
-    <div id="search">
+      <ul>
+        <?php
+        if($menu!=null){
+          foreach ($menu as $r) {
+           echo '
+           <li>
+           <a href="#">'.$r -> name .'</a>
+           </li> 
+           '; 
+         }
+       }
+       ?>
+     </ul>
+     <div id="search">
       <input id="text-search" type="text" />
       <input id="button-search" type="button" />
     </div>
@@ -57,5 +55,5 @@
       </div>
       <!--end user--> 
     </div><!--end nav-->
-    </div>
+  </div>
 <!--end header-->
