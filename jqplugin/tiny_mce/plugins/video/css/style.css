@@ -1,0 +1,23 @@
+.btn-wrapper{
+	margin-top: 10px;
+}
+
+#video_link{
+	width: 400px;
+	height: 20px;
+	float: left;
+}
+
+.btn-wrapper{
+	width: 400px;
+	margin: 0px auto
+}
+
+
+#prev {
+	border: 1px solid black;
+	height: 200px;
+	margin: 0;
+	overflow: auto;
+	width: 100%;
+}

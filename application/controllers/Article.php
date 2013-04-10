@@ -26,7 +26,6 @@ class Article extends CI_Controller {
 					$data['alert_state'] = ALERT_STATE_SUCCESS;
 					$data['alert_msg'] = DEL_SUCCESS_MSG;
 				}
-
 				break;
 
 				default :
@@ -156,8 +155,8 @@ class Article extends CI_Controller {
 	}
 
 	function edit() {
-		if ($this -> uri -> segment(3)) {
-			$id = intval($this -> uri -> segment(3));
+		if ($this -> uri -> segment(4)) {
+			$id = intval($this -> uri -> segment(4));
 			if ($id) {
 				$this -> load -> model('Article_model');
 				if (isset($_POST['txtTitle'])) {

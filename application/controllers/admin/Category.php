@@ -6,6 +6,7 @@ class Category extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		session_start();
 		date_default_timezone_set('Asia/Bangkok');
 	}
 
@@ -81,7 +82,7 @@ class Category extends CI_Controller {
 		$per_page = $this -> input -> get('per_page') ? $this -> input -> get('per_page') : 5;
 
 		$data['cat_list'] = $this -> Categories_model -> get_categories("*", $where, $like, ($page - 1) * $per_page, $per_page, array('id' => $order));
-		$data['base_url'] = base_url() . 'admin/dash_board/user/?order=' . $order;
+		$data['base_url'] = base_url() . 'admin/category/?order=' . $order;
 		$data['sort'] = $order;
 		$data['next_sort'] = $order == 'ASC' ? 'DESC' : 'ASC';
 

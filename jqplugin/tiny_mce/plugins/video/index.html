@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF8" />
+    <title>Chèn video</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" ></link>
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="../../utils/validate.js"></script>
+    <script type="text/javascript" src="../../utils/form_utils.js"></script>
+    <script type="text/javascript" src="../../utils/editable_selects.js"></script>
+    <script type="text/javascript" src="uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript" src="uploadify/uploadifyLang_vi.js"></script>
+    <style type="text/css">
+    .uploadify {
+        position: relative;
+        margin-bottom: 1em;
+    }
+    .uploadify-button {
+        background-color: #505050;
+        background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+        background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, #505050),
+            color-stop(1, #707070)
+            );
+        background-position: center top;
+        background-repeat: no-repeat;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid #808080;
+        color: #FFF;
+        font: bold 12px Arial, Helvetica, sans-serif;
+        text-align: center;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+        width: 100%;
+    }
+    .uploadify:hover .uploadify-button {
+        background-color: #606060;
+        background-image: linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -o-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -moz-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -webkit-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -ms-linear-gradient(top, #606060 0%, #808080 100%);
+        background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, #606060),
+            color-stop(1, #808080)
+            );
+        background-position: center bottom;
+    }
+    .uploadify-button.disabled {
+        background-color: #D0D0D0;
+        color: #808080;
+    }
+    .uploadify-queue {
+        margin-bottom: 1em;
+    }
+    .uploadify-queue-item {
+        background-color: #F5F5F5;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font: 11px Verdana, Geneva, sans-serif;
+        margin-top: 5px;
+        max-width: 350px;
+        padding: 10px;
+    }
+    .uploadify-error {
+        background-color: #FDE5DD !important;
+    }
+    .uploadify-queue-item .cancel a {
+        background: url('uploadify-cancel.png') 0 0 no-repeat;
+        float: right;
+        height: 16px;
+        text-indent: -9999px;
+        width: 16px;
+    }
+    .uploadify-queue-item.completed {
+        background-color: #E5E5E5;
+    }
+    .uploadify-progress {
+        background-color: #E5E5E5;
+        margin-top: 10px;
+        width: 100%;
+    }
+    .uploadify-progress-bar {
+        background-color: #0099FF;
+        height: 3px;
+        width: 1px;
+    }
+    </style>
+    <script type="text/javascript">
+    var titleVideo='';
+    var catId='';
+    jQuery(document).ready(function($) {
+      var plugin_url=tinyMCEPopup.getWindowArg('plugin_url');
+       $('#fudVideo').uploadify({
+        'swf' : plugin_url+'/uploadify/uploadify.swf',
+        'uploader' : tinyMCE.activeEditor.getParam('document_base_url')+'admin/FileManager/uploadVideoArticle',
+        'cancelImage' : plugin_url+'uploadify/uploadify-cancel.png',
+        'buttonText' : 'CHỌN VIDEO',
+        'auto' : false,
+        'width' : '100',
+        'height' : '20',
+        'queueSizeLimit' : 1,
+        'fileSizeLimit' : 120 * 1024,
+        'queueID' : 'queue',
+        'removeCompleted' : true,
+        'multi' : false,
+        'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '',
+        'onSelect' : function(file) {
+         titleVideo=prompt('Vui lòng cho biết tiêu đề video');
+         if(titleVideo==null || titleVideo==''){
+           $('#fudVideo').uploadify('cancel');
+       }
+   },
+
+   'onCancel' : function(file) {
+
+   },
+
+   'onUploadStart' : function(file) {
+      $('#fudVideo').uploadify('settings', 'formData', {
+         'title':titleVideo,
+         'catId':$('#catId option:selected').val()
+     })
+  },
+
+  'onUploadSuccess' : function(file, data, response) {
+   alert(data);
+}
+})
+
+$.ajax({
+  url:tinyMCE.activeEditor.getParam('document_base_url')+'admin/category/getAjaxCategory',
+  type:'post',
+  dataType:'html',
+  success:function(data){
+    $('#catId').html(data);
+  }
+})
+
+$('#btnUpload').bind('click',function(){
+    $('#fudVideo').uploadify('upload','*');
+})
+});
+</script>
+</head>
+<body>
+    <form>
+
+        <div style="display:block; overflow:hidden">
+            <input type="file" id="fudVideo" name="insert" onclick=""/>
+            <div id="queue" style:"display:block"></div>
+            <div style="margin: 10px auto;width:165px">
+                <select style="padding:5px" id="catId">
+
+                </select>
+                <input style="padding:5px" type="button" name="btnUpload" id="btnUpload" value="Upload">
+            </div>
+        </div>
+    </form>
+    <form onsubmit=";return false;" action="#">
+       <div id="video_poster_filebrowser"> 
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+                <td><input style="width:410px;" id="video_path" name="video_path" value="" class="mceFocus" type="text" onblur="VideoDialog.preview()"></td>
+                <td id="filebrowsercontainer"><a id="filebrowser_link" href="javascript:openBrowser('filebrowser','video_path', 'video','media_media_browser_callback');" onmousedown="return false;" class="browse"><span id="filebrowser" title="Browse">&nbsp;</span></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="clear"></div>
+<fieldset>
+    <legend>Preview</legend>
+    <div id="prev"></div>
+</fieldset>
+<div class="btn-wrapper">
+    <input type="button" id="insert" name="insert" value="Chèn" onclick="VideoDialog.insert();" />
+    <input type="button" id="cancel" name="cancel" value="Hủy" onclick="tinyMCEPopup.close();" />
+</div>
+</form>
+</body>
+</html>

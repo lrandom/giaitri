@@ -281,7 +281,7 @@ $('#btnAddTag').bind('click',function(){
     				<div class="control-group">
     					<label class="control-label" for="txtCat">Chuyên mục</label>
     					<div class="controls">
-    						<div id="cat-wrap" style="height: 150px; width: 300px; ;overflow-y:scroll; background: #FFFFFF; border: 1px solid #CCCCCC; padding: 5px">
+    						<div id="cat-wrap" style="height: 150px; width: 300px ;overflow-y:scroll; background: #FFFFFF; border: 1px solid #CCCCCC; padding: 5px">
     							<?php
     							foreach($cat_list as $r){
     								echo ' <div><input type="checkbox" name="txtCat[]" value="'.$r->id.'" style="float:left"/><span style="margin-left:5px;">'.$r->name.'</span></div>';

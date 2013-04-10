@@ -9,7 +9,6 @@ body {
 }
 
 .btn-group .search-query {
-	height: 30px;
 	border-radius: 0px;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 0px;
@@ -32,11 +31,14 @@ body {
 .control-group input[type="text"], 
 .control-group input[type="password"],
 select{
-	height: 30px;
 	width: 300px;
 }
 
 textarea{
     height: 400px;
     width: 500px;
+}
+
+.control-group select{
+	width: 315px;
 }

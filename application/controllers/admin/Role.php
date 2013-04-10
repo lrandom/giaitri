@@ -6,6 +6,7 @@ class Role extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		session_start();
 		date_default_timezone_set('Asia/Bangkok');
 	}
 
@@ -86,7 +87,9 @@ class Role extends CI_Controller {
 		$config = array();
 		$config['total_rows'] = $this -> Role_model -> total(array(), array());
 		$this -> pagination -> initialize($config);
+
 		$data['page_link'] = $this -> pagination -> create_links();
+        $data['change_permission_link']=base_url().'admin/perm/index/';
 		//end pagination
 
 		$data['add_link'] = base_url() . "admin/role/add";
