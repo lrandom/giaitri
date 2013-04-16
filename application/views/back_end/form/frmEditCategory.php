@@ -143,9 +143,9 @@ if(isset($alert_state)){
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" class="btn" >
-								Sửa
+								<?php echo EDIT_LABEL; ?>
 							</button>
-							<a class="btn" href="<?php echo base_url() ?>admin/category"> Quay lại </a>
+							<a class="btn" href="<?php echo $back_link; ?>"> Quay lại </a>
 						</div>
 					</div>
 				</fieldset>

@@ -89,6 +89,7 @@ if(isset($alert_state)){
 			?>
 			<!--end show alert messager-->
 			<form class="form-horizontal" id="form-add-category" method="post">
+				<input type="hidden" value="<?php echo $token ?>" name="token" id="token">
 				<fieldset>
 					<legend>
 						Thêm mới chuyên mục
@@ -136,9 +137,9 @@ if(isset($alert_state)){
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" class="btn" >
-								Thêm
+								<?php echo ADD_LABEL ?>
 							</button>
-							<a class="btn" href="<?php echo base_url() ?>admin/category"> Quay lại </a>
+							<a class="btn" href="<?php echo $back_link ?>"> Quay lại </a>
 						</div>
 					</div>
 				</fieldset>

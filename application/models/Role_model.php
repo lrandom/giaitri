@@ -66,8 +66,8 @@ class Role_model extends CI_Model {
 		$this -> db -> update('roles', $data_array);
 	}
 
-	public function insert_users_roles($role_id){
-		$this->db->insert('users_in_roles',array('role_id'=>$role_id));
+	public function insert_users_in_roles($role_id,$user_id){
+		$this->db->insert('users_in_roles',array('role_id'=>$role_id,'user_id'=>$user_id));
 		return $this->db->insert_id();
 	}
 

@@ -21,13 +21,13 @@ $CI -> load -> view('back_end/includes/header.php');
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Hiển thị<span class="caret"></span> </a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="<?php echo base_url() ?>admin/category">Tất cả các chuyên mục</a>
+							<a href="<?php echo $back_link ?>">Tất cả các chuyên mục</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url() ?>admin/category?show=disabled">Chuyên mục bị khóa</a>
+							<a href="<?php echo $back_link ?>?show=disabled">Chuyên mục bị khóa</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url() ?>admin/category?show=actived">Chuyên mục đang hoạt động</a>
+							<a href="<?php echo $back_link ?>?show=actived">Chuyên mục đang hoạt động</a>
 						</li>
 					</ul>
 				</div>
@@ -93,7 +93,7 @@ $CI -> load -> view('back_end/includes/header.php');
 								<td>' . $r -> name . '</td>
 								<td>'.$r->order_top_menu.'</td>
 								<td>' . $r -> state . '</td>
-								<td><a class="btn btn-info"  href="' . base_url() . 'admin/category/edit/' . $r -> id . '">Sửa</a></td>
+								<td><a class="btn btn-info"  href="'.$edit_link. $r -> id . '">Sửa</a></td>
 								<td><a class="btn btn-danger" href="' . base_url() . 'admin/category/?action=delete&id=' . $r -> id . '">Xóa</a></td>
 								</tr>';
 							}

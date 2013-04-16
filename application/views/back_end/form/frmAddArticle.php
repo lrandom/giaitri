@@ -9,7 +9,10 @@ $CI -> load -> view('back_end/includes/header.php');
 <script type="text/javascript" src="<?php echo base_url() ?>jqplugin/jquery_validation/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>jqplugin/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>jqplugin/tiny_mce/jquery.tinymce.js"></script>
-<script type="text/javascript" language="JavaScript" src="<?php echo base_url() ?>jqplugin/token_input/src/jquery.tokeninput.js"></script>
+<script type="text/javascript" language="JavaScript" src="<?php echo base_url() ?>
+jqplugin/token_input/src/jquery.tokeninput.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url() ?>/jqplugin/ui/js/jquery-ui-1.8.17.custom.min.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>jqplugin/ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>jqplugin/token_input/styles/token-input.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>jqplugin/token_input/styles/token-input-facebook.css" />
 <script type="text/javascript">
@@ -84,9 +87,13 @@ function fileBrowser (field_name, url, type, win) {
 
    txtIntro:{
      required:true
-   }
- },
- messages : {
+   },
+
+   txtDatePost:{
+    required:true
+  }
+},
+messages : {
   txtTitle : {
    required : required_messager,
    maxlength : "Độ dài kí tự phải nhỏ hơn 500 kí tự"
@@ -100,7 +107,10 @@ function fileBrowser (field_name, url, type, win) {
 
  txtIntro:{
    required:required_messager
- }
+ },
+ txtDatePost:{
+  required:required_messager
+}
 },
 errorClass : "help-inline",
 errorElement : "span",
@@ -212,6 +222,11 @@ $('#btnAddTag').bind('click',function(){
 		}
 	})
 })
+
+$( "#txtDatePost" ).datepicker({
+  'minDate':0,
+  'dateFormat':'dd-mm-yy'
+});
 })
     //end jquery
     </script>
@@ -256,6 +271,7 @@ $('#btnAddTag').bind('click',function(){
     	?>
     	<div class="container-fluid wrapper">
     		<form class="form-horizontal" id="form-add-article" method="post">
+          <input type="hidden" value="<?php echo $token ?>" name="token" id="token">
     			<input type="hidden" value="" id="set-of-tag" name="set-of-tag" />
     			<input type="hidden" value="" id="set-of-rel-article" name="set-of-rel-article"/>
     			<fieldset>
@@ -343,37 +359,45 @@ $('#btnAddTag').bind('click',function(){
     					</div>
     				</div>
 
-    				<div class="control-group">
-    					<div class="controls">
-    						<button type="submit" class="btn">
-    							<?php
-    							echo ADD_LABEL;
-    							?>
-    						</button>
-    						<a class="btn" href="<?php echo $back_link; ?>">
-    							<?php
-    							echo BACK_LABEL;
-    							?>
-    						</a>
-    					</div>
-    				</div>
-    			</fieldset>
-    		</form>
-    		<!--end form-->
-    	</div>
 
-    	<!--BROWSER THUMBNAIL MODAL-->
-    	<div id="thumbModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    			<h3 id="myModalLabel">Chọn ảnh đại diện</h3>
-    		</div>
-    		<div class="modal-body">
-    			<p>Loading...</p>
-    		</div>
-    		<div class="modal-footer">
-    			<button class="btn btn btn-inverse" data-dismiss="modal" aria-hidden="true">Đóng</button>
-    		</div>
-    	</div>
-    </body>
-    </html>
+            <div class="control-group">
+              <label class="control-label" for="txtDatePost">Ngày đăng</label>
+              <div class="controls">
+                <input type="text" name="txtDatePost" id="txtDatePost" />
+              </div>
+            </div>
+
+            <div class="control-group">
+             <div class="controls">
+              <button type="submit" class="btn">
+               <?php
+               echo ADD_LABEL;
+               ?>
+             </button>
+             <a class="btn" href="<?php echo $back_link; ?>">
+               <?php
+               echo BACK_LABEL;
+               ?>
+             </a>
+           </div>
+         </div>
+       </fieldset>
+     </form>
+     <!--end form-->
+   </div>
+
+   <!--BROWSER THUMBNAIL MODAL-->
+   <div id="thumbModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+     <h3 id="myModalLabel">Chọn ảnh đại diện</h3>
+   </div>
+   <div class="modal-body">
+     <p>Loading...</p>
+   </div>
+   <div class="modal-footer">
+     <button class="btn btn btn-inverse" data-dismiss="modal" aria-hidden="true">Đóng</button>
+   </div>
+ </div>
+</body>
+</html>

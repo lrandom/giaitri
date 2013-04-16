@@ -15,30 +15,39 @@ css/admin/main.css">
 $(document).ready(function() {
 	var required_messager = "Vui lòng không bỏ trống dòng này";
 	var digits_messager = "Vui lòng chỉ điền số";
-	$('.form-login').validate({
+	$('.form-get-pass').validate({
 		rules : {
-			username : {
-				required : true,
-				maxlength : 50,
-				minlength : 5
-			},
 			password : {
 				required : true,
 				maxlength :50,
 				minlength : 5
+			},
+			cfpassword: {
+				required : true,
+				maxlength : 50,
+				minlength : 5,
+				equalTo : "#password"
 			}
 		},
 		messages : {
-			username : {
-				required : required_messager,
-				minlength : "Độ dài tối thiểu là 5 kí tự",
-				maxlength : "Độ dài kí tự phải nhỏ hơn 50 kí tự"
-			},
 			password : {
 				required : required_messager,
 				minlength:"Độ dài tối thiểu là 5 kí tự",
 				maxlength:"Độ dài kí tự phải nhỏ hơn 50 kí tự"
+			},
+			cfpassword : {
+				required : required_messager,
+				minlength : "Độ dài tối thiểu là 5 kí tự",
+				maxlength : "Độ dài kí tự phải nhỏ hơn 50 kí tự",
+				equalTo : "Mật khẩu xác nhận không trùng khớp"
 			}
+		},
+		submitHandler:function(){
+			if ($('#term_of_services').is(':checked')) {
+				$('.form-get-pass')[0].submit();
+			} else {
+				alert('Vui lòng chấp nhận điều khoản của chúng tôi');
+			} 
 		},
 		errorClass : "error",
 		errorElement : "span",
@@ -55,7 +64,7 @@ body {
 	background-color: #f5f5f5;
 }
 
-.form-login {
+.form-get-pass {
 	max-width: 300px;
 	padding: 19px 29px 29px;
 	margin: 0 auto 20px;
@@ -69,11 +78,11 @@ body {
 	box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
-.form-login .form-login-heading, .form-login .checkbox {
+.form-get-pass .form-get-pass-heading, .form-get-pass .checkbox {
 	margin-bottom: 10px;
 }
 
-.form-login input[type="text"], .form-login input[type="password"] {
+.form-get-pass input[type="text"], .form-get-pass input[type="password"] {
 	font-size: 16px;
 	height: auto;
 	margin-bottom: 8px;
@@ -90,26 +99,25 @@ body {
 
 <body>
 	<div class="container">
-		<form class="form-login" method="post">
-			<h3 class="form-login-heading">Đăng nhập quản trị</h3>
-
-			<!-- username -->
-			<input name="username" id="username" type="text" class="input-block-level" placeholder="Tên đăng nhập" size="50">
-			<span class="error"><?php echo form_error('username'); ?></span>
+		<form class="form-get-pass" method="post">
+			<h5 class="form-get-pass-heading"><a href="#"><?php echo $name; ?></a>,vui lòng nhập mật khẩu của bạn</h5>
 
 			<!-- password -->
 			<input name="password" id="password" type="password" class="input-block-level" placeholder="Mật khẩu" size="50">
 			<span class="error"></span>
 
+			<!-- password -->
+			<input name="cfpassword" id="cfpassword" type="password" class="input-block-level" placeholder="Xác nhận lại mật khẩu" size="50">
+			<span class="error"></span>
+
 			<!-- remember me -->
-			<label class="checkbox">
-				<input type="checkbox" value="remember_me" name="remember_me" id="remember_me">Ghi nhớ đăng nhập
+			<label>
+				<input type="checkbox" value="" name="term_of_services" id="term_of_services">
+				Tôi đã đọc và chấp nhận với <a href="#">điều khoản</a> website
 			</label>
-            <span class="error"><?php if(isset($error_msg)) {echo $error_msg;} ?></span>
 
-
-			<button class="btn" type="submit">Đăng nhập</button>
-
+			<span class="error"><?php if(isset($error_msg)) {echo $error_msg;} ?></span>
+			<button class="btn" type="submit">OK</button>
 		</form>
 	</div>
 	<!--end container -->

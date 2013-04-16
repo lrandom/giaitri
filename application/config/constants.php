@@ -145,3 +145,6 @@ if (!defined('BASEPATH'))
  define('CRUD_READ_LABEL','Xem');
  define('CRUD_UPDATE_LABEL','Sửa');
  define('CRUD_DELETE_LABEL','Xóa');
+
+ /*define max login attempts*/
+ define('MAX_LOGIN_ATTEMPTS',2);

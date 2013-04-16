@@ -6,7 +6,6 @@ $CI = &get_instance();
 <?php
 $CI -> load -> view('back_end/includes/header.php');
 ?>
-
 <body>
 	<?php
 	$CI -> load -> view('back_end/includes/nav_menu');
@@ -16,25 +15,35 @@ $CI -> load -> view('back_end/includes/header.php');
 	$(document).ready(function() {
 		var required_messager = "Vui lòng không bỏ trống dòng này";
 		var digits_messager = "Vui lòng chỉ điền số";
-		$('#form-add-role').validate({
+		$.validator.addMethod("password", function(value, element) {
+			return this.optional(element) || /^[A-Za-z0-9!@#$%^&*()_]{6,50}$/i.test(value);
+		}, "Mật khẩu từ 6 đến 50 kí tự");
+
+		$('#form-add-user').validate({
 			rules : {
-				txtRole : {
+				txtPassword : {
 					required : true,
-					remote:{
-						url:'<?php echo base_url() ?>admin/Role/checkRoleExist',
-						type:"post",
-						data:{
-							txtRole:function(){
-								return $('#form-add-role :input[name="txtRole"]').val();
-							}
-						}
-					}
+					password : true
+				},
+				txtRepass : {
+					required : true,
+					equalTo : "#txtPassword"
+				},
+				txtOldPass:{
+					required:true,
+					password:true
 				}
 			},
 			messages : {
-				txtRole : {
+				txtPassword : {
+					required : required_messager
+				},
+				txtRepass : {
 					required : required_messager,
-					remote: $.validator.format("{0} đã tồn tại")
+					equalTo : "Mật khẩu không trùng khớp"
+				},
+				txtOldPass:{
+					required:required_messager
 				}
 			},
 			errorClass : "help-inline",
@@ -50,8 +59,8 @@ $CI -> load -> view('back_end/includes/header.php');
 		});
 	})
 </script>
-
 <div class="container-fluid wrapper">
+
 	<!--show alert messager-->
 	<?php 
 	if(isset($alert_state)){
@@ -64,39 +73,56 @@ $CI -> load -> view('back_end/includes/header.php');
 	}
 	?>
 	<!--end show alert messager-->
+
 	<fieldset>
 		<legend>
-			Thêm vai trò
+			<?php echo $title ?>
 		</legend>
-		<form class="form-horizontal" id="form-add-role" method="post">
-			<input type="hidden" value="<?php echo $token ?>" name="token" id="token">
+		<form class="form-horizontal" id="form-add-user" name="form-add-user" method="post">
 			<div class="control-group">
-				<label class="control-label" for="txtRole">Tên vai trò</label>
+				<label class="control-label" for="txtPassword">Mật khẩu mới</label>
 				<div class="controls">
-					<input type="text" id="txtRole" name="txtRole" placeholder="Tên vai trò"/>
+					<input type="password" id="txtPassword" name="txtPassword" placeholder="Mật khẩu"/>
+				</div>
+			</div>
+
+
+			<div class="control-group">
+				<label class="control-label" for="txtRepass">Nhắc lại mật khẩu</label>
+				<div class="controls">
+					<input type="password" id="txtRepass" name="txtRepass" placeholder="Mật khẩu"/>
 				</div>
 			</div>
 
 			<div class="control-group">
+				<label class="control-label" for="txtOldPass">Mật khẩu cũ</label>
+				<div class="controls">
+					<input type="password" id="txtOldPass" name="txtOldPass" placeholder="Xác nhận bằng mật khẩu cũ"/>
+				</div>
+			</div>
+
+
+			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">
-					  <?php echo ADD_LABEL; ?>
+						Thay đổi
 					</button>
-					<a href="<?php echo $back_link ?>" class="btn">
+					<a href="<?php echo base_url() ?>user" class="btn">
 						Quay lại
 					</a>
 				</div>
 			</div>
 		</form>
 	</fieldset>
+
+	<hr>
+	<?php
+	$CI = &get_instance();
+	$CI -> load -> view('back_end/includes/footer');
+	?>
 </div>
 <!--end row fluid-->
-
-<hr>
-<?php
-$CI = &get_instance();
-$CI -> load -> view('back_end/includes/footer');
-?>
-</div><!--/.fluid-container-->
+</div>
+<!--/.fluid-container-->
 </body>
 </html>

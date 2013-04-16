@@ -16,7 +16,7 @@ class Article_model extends CI_Model {
 			$this -> db -> order_by($order, $sort);
 		}
 		$this -> db -> select($select);
-		$this -> db -> from('articles,categories');
+		$this -> db -> from('articles');
 		$this -> db -> where($array_where);
 		$this -> db -> like($array_like);
 		$this -> db -> limit($offset, $first);
@@ -43,7 +43,7 @@ class Article_model extends CI_Model {
 		$query -> free_result();
 		return $rows[0] -> total;
 	}
-	function get_article_cat_id($id,$first,$offset){
+	function get_article_by_cat_id($id,$first,$offset){
 
 		$select = '*,articles.id as id';
 		$arr_where = array('articles.state' => 1, 'FIND_IN_SET("' . $id . '",cat_id)<>' => 0);
@@ -54,7 +54,7 @@ class Article_model extends CI_Model {
 	}
 
 	function get_article_by_new($first,$offset){
-		$select='*,articles.id as id,categories.name as name';
+		$select='*,articles.id as id';
 		$arr_where = array('articles.state' => ACTIVED_STATE);
 		$arr_like= array();
 		$order_by= array('articles.id' => 'DESC');

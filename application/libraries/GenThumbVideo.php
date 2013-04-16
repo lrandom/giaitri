@@ -43,6 +43,5 @@ class GenThumbVideo{
 			//do something
 		}
 	}
-
 }
 ?>

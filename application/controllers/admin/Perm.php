@@ -28,7 +28,7 @@ class Perm extends CI_Controller {
 					if ($del_id) {
 						$this -> Perm_model ->remove_perm_by_id($del_id);
 						$data['alert_state'] = ALERT_STATE_SUCCESS;
-					    $data['alert_msg'] = DEL_SUCCESS_MSG;
+						$data['alert_msg'] = DEL_SUCCESS_MSG;
 					}
 					break;
 
@@ -51,7 +51,7 @@ class Perm extends CI_Controller {
 					case 'id' :
 					$where['perms.id'] = $q;
 					break;
-                      
+
 					case 'func_name' :
 					$like['funcs.desc'] = $q;
 					break;
@@ -95,28 +95,34 @@ function add(){
 	if($this->uri->segment(4)){
 		$id=intval($this->uri->segment(4));
 		if($id){
-			if(isset($_POST['func_list']) && isset($_POST['crud'])){
-				$func_id=$this->input->post('func_list');
-				$crud=$this->input->post('crud');
-				$this->load->model('Perm_model');
-				$data=$this->Perm_model->get_perm_by_func_id($id, $func_id);
-				if($data==null){
-					$crud_list='';
-					for ($i=0; $i < count($crud) ; $i++) { 
-						$crud_list.=$crud[$i];
+			if(isset($_POST['func_list']) && isset($_POST['crud']) && isset($_POST['token'])){
+				if(isset($_SESSION['token']) && ($_SESSION['token']==$this->input->post('token'))){
+					$func_id=$this->input->post('func_list');
+					$crud=$this->input->post('crud');
+					$this->load->model('Perm_model');
+					$data=$this->Perm_model->get_perm_by_func_id($id, $func_id);
+					if($data==null){
+						$crud_list='';
+						for ($i=0; $i < count($crud) ; $i++) { 
+							$crud_list.=$crud[$i];
+						}
+						$data_array=array(
+							'perm'=>$crud_list,
+							'last_update'=>date('Y-m-d H:i:s',time()),
+							'role_id'=>$id,
+							'func_id'=>$func_id);
+						$this->Perm_model->insert_perm($data_array);
 					}
-					$data_array=array(
-						'perm'=>$crud_list,
-						'last_update'=>date('Y-m-d H:i:s',time()),
-						'role_id'=>$id,
-						'func_id'=>$func_id);
-					$this->Perm_model->insert_perm($data_array);
-				}
-			}
+				}//end if
+			}//end if
+			//end data
 			$data['title']="Thêm quyền";
 			$this->load->model('Func_model');
 			$data['func_list']=$this->Func_model-> get_func('*',array(), array(), 0, 100, array());
 			$data['back_link']=base_url().'admin/perm/index/'.$id;
+			$this->load->library('ultils');
+			$data['token']=$this->ultils->_generate_unqid_token();
+			$_SESSION['token']=$data['token'];
 			$this->load->view('back_end/form/frmAddPerm',$data);
 		}
 	}

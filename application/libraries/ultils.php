@@ -3,6 +3,7 @@ if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
 class Ultils {
+	const TOKEN_SEPARATOR = '**____**';
 	public function counter_view_thread($idThread) {
 		$cookieName = 'article_' . $idThread;
 		$CI = &get_instance();
@@ -99,7 +100,23 @@ class Ultils {
 	static function _encrypt_password($password){
 		return md5(md5($password));
 	}
-}
 
+	static function _generate_remember_me_token($username,$password){
+		return base64_encode($username.self::TOKEN_SEPARATOR.$password) ;
+	}
+
+	static function validate_remember_me_token($token,$username,$password){
+		$parts=explode(self::TOKEN_SEPARATOR, base64_decode($token));
+		if($parts[0]==$username && $parts[1]==$password){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	static function _generate_unqid_token(){
+		return sha1(uniqid(mt_rand(),true));
+	}   
+}
 /* End of file phpthumb_lib.php */
 /* Location: ./system/app/libraries/phpthumb_lib.php */

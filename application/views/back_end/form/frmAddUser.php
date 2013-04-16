@@ -142,6 +142,7 @@ $CI = &get_instance();
 					Thêm người quản trị
 				</legend>
 				<form class="form-horizontal" id="form-add-user" name="form-add-user" method="post">
+					<input type="hidden" value="<?php echo $token ?>" name="token" id="token">
 					<div class="control-group">
 						<label class="control-label" for="txtFullName">Họ tên</label>
 						<div class="controls">
