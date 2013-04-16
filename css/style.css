@@ -97,11 +97,11 @@
 
     #header #text-search:focus
     {
-     outline: none;
- }
+       outline: none;
+   }
 
- #header #button-search
- {
+   #header #button-search
+   {
     width:14px;
     height:14px;
     border:none;
@@ -203,6 +203,7 @@
     width:980px;
     margin-top:30px;
     overflow:hidden;
+    box-shadow: 0px 7px 7px 0px #d2d2d2;
 
 }
 
@@ -219,32 +220,39 @@
     background:#0363a2;    
     overflow:hidden;
     margin-top:15px;
-    height: 1437px;
+    height: 1445px;
 }
 
 #menu-content .ul-news-top
 {
     float:left;
+    margin-bottom: 21px;
 }
 
 #menu-content .ul-news-top li
 {
     list-style:none; 
 }
+#menu-content .ul-news-top li a{
+    text-decoration:none;
+    color:#fff;
+    font-size:11px;
+    display:block;
+}
 
-#menu-content .ul-news-top li a
+#menu-content .ul-news-top li
 {
-	width:80px;
     text-decoration:none;
     color:#fff;
     font-size:11px;
     padding:6px 10px 6px;
     display:block;
     border-bottom:1px solid #204e76;
-    border-top:1px solid #3f7bb0
+    border-top:1px solid #3f7bb0;
+    cursor: pointer;
 }
 
-#menu-content .ul-news-top li:hover a
+#menu-content .ul-news-top li:hover
 {
     background:#1f507b;
     box-shadow:inset 0px 1px 2px #0f3557;
@@ -278,7 +286,7 @@
 #menu-content #ul-funny
 {
 	float:left;
-	margin-top:103px;
+	margin-top:95px;
 	margin-bottom:185px;
 }
 
@@ -289,7 +297,7 @@
     overflow:hidden;
 }
 #featured{ 
-    width:629cpx; 
+    width:629px; 
     padding-right:20px; 
     position:relative;
     height:435px; 
@@ -344,7 +352,6 @@
 #featured .ui-tabs-panel{ 
     width:400px; 
     height:250px; 
-    background:#999; 
     position:relative;
     left: -103px;
 }
@@ -508,6 +515,7 @@
     height: 175px;
     overflow:hidden;
     background:url(../resources/cn/xu-huong/noise-xu-huong.png)   ;
+    margin-top: 5px;
 }
 
 .xu-huong-left
@@ -526,15 +534,15 @@
     width:139px;
     height:109px;
     
-    background: url(../resources/cn/xu-huong/box-shadow-xu-huong.png);
+    background: url(resources/cn/xu-huong/box-shadow-xu-huong.png);
     margin:17px 0 0 14px;
 }
 
 .img-xu-huong img
 {
-   margin:9px; 
-   width: 120px;
-   height: 90px;
+ margin:9px; 
+ width: 120px;
+ height: 90px;
 }
 
 .img-xu-huong a
@@ -554,6 +562,7 @@
 {
 	float:left;
 	overflow:hidden;
+    margin-top: 18px;
 }
 .news-funny
 {
@@ -578,7 +587,7 @@
     float:left;
     width:114px;
     height:71px;
-    background:url(../resources/cn/funny/box-shadow-funny.png) no-repeat;
+    background:url(resources/cn/funny/box-shadow-funny.png) no-repeat;
     margin:5px 10px 0 15px;
 }
 
@@ -639,13 +648,10 @@
 
 }
 
-
-
-
 #right-content
 {
     width:271px;
-    height: 1437px;
+    height: 1445px;
     float:right;
     margin-top:15px;
     background:#0363a2;
@@ -756,13 +762,14 @@
     float:left;
     list-style:none;
     border-bottom:1px solid #3f7bb0;
+    height: 265px;
 }
 
 .news-random h4
 {
     float:left;
 
-    padding:20px 175px 15px 10px;
+    padding:20px 170px 15px 10px;
     border-bottom:2px solid #fa5f00;
     font-weight:bold;
     text-transform:uppercase;
@@ -803,20 +810,21 @@ a:hover, a:active {
 	color:#9e805c;
 	text-decoration:none;
 }
-
-.news-random{
-	height:300px;
-}
 .news-random ul
 {
     float:left;
-    border-bottom:1px solid #204e76;
+    overflow: hidden;
+
+}
+.news-random ul li img{
+   border: 1px solid #d2d2d2;
 }
 
 .img-news-random
 {
     float:left;
     margin:10px 0 0 43px;
+    
 }
 
 .news-random ul a p
@@ -912,7 +920,6 @@ a:link {
 #list {
 	height: 160px;
 	width: 980px;
-	margin: 30px auto;
 	background-image:url(../resources/images/noise-xu-huong.png);
 	overflow: hidden;
     position: relative;
@@ -989,31 +996,31 @@ a:link {
 }
 /************************************************
 	      CAPTIFY CAPTION		
-        ************************************************/
-        .caption-top, .caption-bottom {
-         background: #000000;
-         color: #ffffff;
-         cursor: default;
-         padding: 2px;
-         font-size: 11px;
-         text-align: center;
-     }
-     .caption-top {
-         border-width: 0px;
-     }
-     .caption-bottom {
-         border-width: 0px;
-     }
-     .caption a, .caption a {
-         background: #000;
-         border: none;
-         text-decoration: none;
-         padding: 2px;
-     }
-     .caption a:hover, .caption a:hover {
-         background: #202020;
-     }
-     .view-left{
+          ************************************************/
+          .caption-top, .caption-bottom {
+           background: #000000;
+           color: #ffffff;
+           cursor: default;
+           padding: 2px;
+           font-size: 11px;
+           text-align: center;
+       }
+       .caption-top {
+           border-width: 0px;
+       }
+       .caption-bottom {
+           border-width: 0px;
+       }
+       .caption a, .caption a {
+           background: #000;
+           border: none;
+           text-decoration: none;
+           padding: 2px;
+       }
+       .caption a:hover, .caption a:hover {
+           background: #202020;
+       }
+       .view-left{
         width: 72px;
         float: left;
 
@@ -1024,13 +1031,13 @@ a:link {
       overflow: hidden;
   }
   .text {
-     float: left;
-     padding: 10.5px;
+   float: left;
+   padding: 10.5px;
 
- }
- .text h4 {
-   font-size: 12px;
-   font-weight: bold;
+}
+.text h4 {
+ font-size: 12px;
+ font-weight: bold;
 }
 .text h4:hover {
 	text-decoration: underline;
@@ -1043,7 +1050,11 @@ a:link {
 .view-right .text p span {
 	color: #fff;
 }
+#shaw-dow{
 
+   background: url(../resources/cn/shadow-content.png);
+
+}
 #foot
 {
     width:980px;

@@ -20,7 +20,7 @@
  */
 
 .blueberry { margin: 0 auto; }
-.blueberry {width: 200px;
+.blueberry {width: 210px;
 	height: 150px; }
 .blueberry .slides {
 	display: block;
@@ -32,6 +32,10 @@
 	top: 0;
 	left: 0;
 	overflow: hidden;
+	width: 210px;
+}
+.slides{
+	width: 210px;
 }
 .blueberry .slides li img {
 	display: block;
@@ -69,4 +73,4 @@
    -moz-border-radius: 2px;
 	border-radius: 2px;
 }
-.blueberry .pager li.active a span { background: #404040; }
+.blueberry .pager li.active a span { background : #fa5f00; }

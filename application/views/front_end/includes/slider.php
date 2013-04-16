@@ -83,3 +83,4 @@
       </div>
      <a href="#"> <div class="next"></div></a>
     </div>
+  </div><!--end content-->
