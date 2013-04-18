@@ -353,7 +353,7 @@
     width:400px; 
     height:250px; 
     position:relative;
-    left: -103px;
+    left: -113px;
 }
 #featured .ui-tabs-panel .info{ 
     width:460px;
@@ -518,16 +518,6 @@
     margin-top: 5px;
 }
 
-.xu-huong-left
-{
-    float:left;
-}
-
-.xu-huong-right
-{
-	float:left;
-}
-
 .img-xu-huong
 {
     float:left;
@@ -563,12 +553,17 @@
 	float:left;
 	overflow:hidden;
     margin-top: 18px;
+    width: 629px;
+height: auto;
 }
 .news-funny
 {
-	float:left;
-    margin-right: 10px;
-    padding-bottom: 11px;
+	float: left;
+margin-right: 5px;
+padding-bottom: 10px;
+margin-bottom: 10px;
+margin-left: 7px;
+border: 1px solid #EEEEEE;
 
 
 }
@@ -579,6 +574,7 @@
     text-decoration:none;
     color:#333;
     width: 300px;
+    margin-top: 4px;
 }
 
 
@@ -589,12 +585,12 @@
     height:71px;
     background:url(resources/cn/funny/box-shadow-funny.png) no-repeat;
     margin:5px 10px 0 15px;
+    box-shadow: -4px 5px 5px 1px #D2D2D2;
 }
 
 .news-funny a i img
 {
     float:left;
-    margin:3px;
     width: 113px;
     height: 71px;
 }

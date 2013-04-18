@@ -45,17 +45,17 @@ $(window).load(function() {
   <h4>Xem nhiều</h4>
   <div class="view-left">
    <div class="backgroud-number">01</div>
-   <img src="resources/source.png">
+   <img src="<?php echo base_url() ?>resources/source.png">
    <div class="backgroud-number">02</div>
-   <img src="resources/source.png">
+   <img src="<?php echo base_url() ?>resources/source.png">
    <div class="backgroud-number">03</div>
-   <img src="resources/source.png">
+   <img src="<?php echo base_url() ?>resources/source.png">
    <div class="backgroud-number">04</div>
-   <img src="resources/source.png">
+   <img src="<?php echo base_url() ?>resources/source.png">
    <div class="backgroud-number">05</div>
-   <img src="resources/source.png">
+   <img src="<?php echo base_url() ?>resources/source.png">
    <div class="backgroud-number">06</div>
-   <img src="resources/source.png">
+   <img src="<?php echo base_url() ?>resources/source.png">
 
  </div>
  <div class="view-right">

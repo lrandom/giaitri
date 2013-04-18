@@ -1,0 +1,85 @@
+body {
+font-family: arial,verdana,serif;
+font-size: 12px;
+line-height: 1.4em;
+color: #333;
+background: blue;
+}
+#main{
+width: 600px;
+margin: 0 auto;
+margin-top: 100px;
+margin-bottom: 50px;
+}
+div.box {
+margin: 0 0 10px 0;
+padding: 10px 15px 5px;
+background-color: white;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+box-shadow: 0 0 3px #AAA;
+-moz-box-shadow: 0 0 3px #AAA;
+-webkit-box-shadow: 0 0 3px #AAA;
+}
+div.box h3 {
+font-size: 17px;
+margin: 0 0 5px;
+}
+span {
+font-weight: bold;
+cursor: pointer;
+display: block;
+font-size: 13px;
+}
+span:after {
+color: red;
+content: " *";
+}
+#text{
+	padding: 50px;
+}
+input.text ,textarea, select {
+display: block;
+padding: 8px;
+border: 1px solid #DDD;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-transition: border-color .2s linear;
+-moz-transition: border-color .2s linear;
+margin: 5px 0;
+width: 300px;
+}
+.buttonSet {
+margin-top: 30px;
+}
+.buttons {
+line-height: 30px;
+padding: 0 10px;
+font-size: 12px;
+font-weight: bold;
+background-color: #00A5F0;
+color: white;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-transition: background-color .2s linear;
+-moz-transition: background-color .2s linear;
+border: 1px solid rgba(0, 0, 0, .2);
+box-shadow: 0 0 0 1px rgba(255, 255, 255, .4) inset, 0 1px white;
+-moz-box-shadow: 0 0 0 1px rgba(255, 255, 255, .4) inset, 0 1px #fff;
+-webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, .4) inset, 0 1px white;
+text-shadow: 0 -1px rgba(0, 0, 0, .2);
+text-align: center;
+min-width: 45px;
+cursor: pointer;
+text-decoration: none;
+}
+.cancelButtons {
+display: inline-block;
+background-color: transparent;
+color: #888;
+text-shadow: 0 1px 0 white;
+-webkit-transition: color .2s linear;
+}

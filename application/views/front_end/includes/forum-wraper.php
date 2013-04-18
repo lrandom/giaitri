@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
 			type: "POST",
 			dataType:'html',
 			data : data,
-			url: '<?php echo base_url()?>c_forum/load_new',
+			url: '<?php echo base_url()?>category/load_new',
 			success: function(data){
 				$("#cat").html(data);
 			}
@@ -30,6 +30,6 @@ jQuery(document).ready(function($) {
 </script>
 
 <div class="button" style="cursor:pointer">
-	<img src="resources/button.png" /><b>Xem Thêm</b>
+	<img src="<?php echo base_url() ?>resources/button.png" /><b>Xem Thêm</b>
 </div><!--end button-->
 

@@ -11,6 +11,8 @@ $CI -> load -> view('back_end/includes/header.php');
 <script type="text/javascript" src="<?php echo base_url() ?>jqplugin/tiny_mce/jquery.tinymce.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo base_url() ?>jqplugin/token_input/src/jquery.tokeninput.js">
 </script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url() ?>/jqplugin/ui/js/jquery-ui-1.8.17.custom.min.js"></script>
+<link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>jqplugin/ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>jqplugin/token_input/styles/token-input.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>jqplugin/token_input/styles/token-input-facebook.css" />
 <script type="text/javascript">
@@ -88,77 +90,84 @@ tinyMCE.init({
 
  			txtIntro:{
  				required:true
- 			}
- 		},
- 		messages : {
- 			txtTitle : {
- 				required : required_messager,
- 				maxlength : "Độ dài kí tự phải nhỏ hơn 500 kí tự"
- 			},
- 			txtSource : {
- 				required : required_messager
- 			},
- 			txtAuthor : {
- 				required : required_messager
  			},
 
- 			txtIntro:{
- 				required:required_messager
- 			}
- 		},
- 		errorClass : "help-inline",
- 		errorElement : "span",
- 		highlight : function(element, errorClass, validClass) {
- 			$(element).parents('.control-group').removeClass('success');
- 			$(element).parents('.control-group').addClass('error');
- 		},
- 		unhighlight : function(element, errorClass, validClass) {
- 			$(element).parents('.control-group').removeClass('error');
- 			$(element).parents('.control-group').addClass('success');
- 		},
- 		submitHandler: function(form) {
- 			$('html, body').animate({ scrollTop: 0 }, 'slow');
- 			var content=tinyMCE.activeEditor.getContent();
+            txtDatePost:{
+                required:true
+            }
+        },
+        messages : {
+            txtTitle : {
+               required : required_messager,
+               maxlength : "Độ dài kí tự phải nhỏ hơn 500 kí tự"
+           },
+           txtSource : {
+               required : required_messager
+           },
+           txtAuthor : {
+               required : required_messager
+           },
 
- 			if(content==''){
- 				alert('Vui lòng điền nội dung bài viết');
- 				return;
- 			}
+           txtIntro:{
+               required:required_messager
+           },
+           txtDatePost:{
+            required:required_messager
+        }
+    },
+    errorClass : "help-inline",
+    errorElement : "span",
+    highlight : function(element, errorClass, validClass) {
+        $(element).parents('.control-group').removeClass('success');
+        $(element).parents('.control-group').addClass('error');
+    },
+    unhighlight : function(element, errorClass, validClass) {
+        $(element).parents('.control-group').removeClass('error');
+        $(element).parents('.control-group').addClass('success');
+    },
+    submitHandler: function(form) {
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        var content=tinyMCE.activeEditor.getContent();
 
- 			if(content.length <100  || content.length>50000){
- 				alert('Nội dung bài viết từ 100 đến 50000 kí tự');
- 				return;
- 			}
+        if(content==''){
+           alert('Vui lòng điền nội dung bài viết');
+           return;
+       }
 
- 			if($('#thumb-data').val()==''){
- 				alert('Vui lòng chọn ảnh đại diện');
- 				return;
- 			}
+       if(content.length <100  || content.length>50000){
+           alert('Nội dung bài viết từ 100 đến 50000 kí tự');
+           return;
+       }
 
- 			if($("#cat-wrap :checkbox").filter(":checked").size()==0){
- 				alert('Vui lòng chọn chọn chuyên mục');
- 				return;
- 			}
+       if($('#thumb-data').val()==''){
+           alert('Vui lòng chọn ảnh đại diện');
+           return;
+       }
 
- 			var tmp='';
- 			if(arrayTag.length!=0){
- 				for(i=0;i<arrayTag.length;i++){
- 					tmp+=arrayTag[i]+'|';
- 				}
- 			}
- 			$('#set-of-tag').val(tmp);
+       if($("#cat-wrap :checkbox").filter(":checked").size()==0){
+           alert('Vui lòng chọn chọn chuyên mục');
+           return;
+       }
 
- 			tmp='';
- 			if(idOfRel.length!=0){
- 				for(i=0;i<idOfRel.length;i++){
- 					tmp+=idOfRel[i]+'|';
- 				}
- 			}
- 			$('#set-of-rel-article').val(tmp);
+       var tmp='';
+       if(arrayTag.length!=0){
+           for(i=0;i<arrayTag.length;i++){
+              tmp+=arrayTag[i]+'|';
+          }
+      }
+      $('#set-of-tag').val(tmp);
 
- 			form.submit();
- 		}
- 	});
+      tmp='';
+      if(idOfRel.length!=0){
+       for(i=0;i<idOfRel.length;i++){
+          tmp+=idOfRel[i]+'|';
+      }
+  }
+  $('#set-of-rel-article').val(tmp);
+
+  form.submit();
+}
+});
 
 $('#thumb').bind('click',function(){
     $('#thumbModal').modal({
@@ -263,6 +272,12 @@ $('#btnAddTag').bind('click',function(){
 		}
 	})
 })
+
+$( "#txtDatePost" ).datepicker({
+    'minDate':0,
+    'dateFormat':'dd-mm-yy'
+});
+
 })
     //end jquery
     </script>
@@ -415,37 +430,47 @@ $('#btnAddTag').bind('click',function(){
     					</div>
     				</div>
 
-    				<div class="control-group">
-    					<div class="controls">
-    						<button type="submit" class="btn">
-    							<?php
-    							echo EDIT_LABEL;
-    							?>
-    						</button>
-    						<a class="btn" href="<?php echo $back_link; ?>">
-    							<?php
-    							echo BACK_LABEL;
-    							?>
-    						</a>
-    					</div>
-    				</div>
-    			</fieldset>
-    		</form>
-    		<!--end form-->
-    	</div>
 
-    	<!--BROWSER THUMBNAIL MODAL-->
-    	<div id="thumbModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    		<div class="modal-header">
-    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    			<h3 id="myModalLabel">Chọn ảnh đại diện</h3>
-    		</div>
-    		<div class="modal-body">
-    			<p>Loading...</p>
-    		</div>
-    		<div class="modal-footer">
-    			<button class="btn btn btn-inverse" data-dismiss="modal" aria-hidden="true">Đóng</button>
-    		</div>
-    	</div>
-    </body>
-    </html>
+                    <div class="control-group">
+                        <label class="control-label" for="txtDatePost">Ngày đăng</label>
+                        <div class="controls">
+                            <input type="text" name="txtDatePost" id="txtDatePost" value="<?php 
+                               echo date('d-m-Y',strtotime($article[0]->date_post));
+                             ?>" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                     <div class="controls">
+                      <button type="submit" class="btn">
+                       <?php
+                       echo EDIT_LABEL;
+                       ?>
+                   </button>
+                   <a class="btn" href="<?php echo $back_link; ?>">
+                       <?php
+                       echo BACK_LABEL;
+                       ?>
+                   </a>
+               </div>
+           </div>
+       </fieldset>
+   </form>
+   <!--end form-->
+</div>
+
+<!--BROWSER THUMBNAIL MODAL-->
+<div id="thumbModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+   <h3 id="myModalLabel">Chọn ảnh đại diện</h3>
+</div>
+<div class="modal-body">
+   <p>Loading...</p>
+</div>
+<div class="modal-footer">
+   <button class="btn btn btn-inverse" data-dismiss="modal" aria-hidden="true">Đóng</button>
+</div>
+</div>
+</body>
+</html>

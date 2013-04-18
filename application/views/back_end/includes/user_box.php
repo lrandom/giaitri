@@ -9,10 +9,10 @@
 	    </a>
 		<ul class="dropdown-menu">
 			<li>
-				<a>Thay đổi thông tin cá nhân</a>
+				<a href="<?php echo base_url()?>user/change_profile">Thay đổi thông tin cá nhân</a>
 			</li>
 			<li>
-				<a>Thay đổi mật khẩu</a>
+				<a href="<?php echo base_url()?>user/change_password">Thay đổi mật khẩu</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url()?>dash/log_out">Thoát</a>

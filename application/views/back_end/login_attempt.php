@@ -14,7 +14,7 @@ css/admin/main.css">
 <script type="text/javascript">
   function reload_captcha_image(){
     date=new Date();
-    var image_link = '<?php echo base_url() ?>captcha/load_captcha_login_attemps?_='+date.getTime();
+    var image_link = '<?php echo base_url() ?>captcha/load_captcha_login_attempts?_='+date.getTime();
     $('.captcha_image').attr('src',image_link);
   }
 </script>
@@ -74,7 +74,7 @@ body {
 </head>
 <body>
 	<div class="container" >
-		<form class="form-login-attempt" method="post" action="<?php echo base_url()?>captcha/check_captcha_login_attempts">
+		<form class="form-login-attempt" method="post" >
 			<div class="alert">
 				<p>Bạn đang cố tình đăng nhập vào hệ thống của chúng tôi, vui lòng xác nhận mã bên dưới !</p>
 			</div>

@@ -37,6 +37,7 @@ $CI -> load -> view('back_end/includes/header.php');
     </legend>
 
     <form class="form-horizontal" id="form-add-role" method="post">
+      <input type="hidden" value="<?php echo $token ?>" name="token" id="token">
       <div class="control-group">
         <label class="control-label" for="func_list">Quyền hạn</label>
         <div class="controls">

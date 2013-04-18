@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 			type: "POST",
 			dataType:'html',
 			data : data,
-			url: '<?php echo base_url()?>c_forum/load_new_funny',
+			url: '<?php echo base_url()?>category/load_new_funny',
 			success: function(data){
 				$("#Sibar").html(data);
 			}
@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
 </div><!--end sibar-->
 
 <div class="button-1" style="cursor:pointer">
-	<img src="resources/button.png" /><b>Xem Thêm</b>
+	<img src="<?php echo base_url() ?>resources/button.png" /><b>Xem Thêm</b>
 </div><!--end button-->
 
 </div><!--end Content-->

@@ -94,8 +94,8 @@ $CI -> load -> view('back_end/includes/header.php');
 								<td>' . $r -> state . '</td>
 								<td>' . $r -> last_update . '</td>
 								<td><a class="btn btn-info"  href="'.$change_permission_link.$r->id.'">Thay đổi quyền truy cập</a></td>
-								<td><a class="btn btn-info"  href="' . base_url() . 'admin/role/edit/' . $r -> id . '">Sửa</a></td>
-								<td><a class="btn btn-danger" href="' . base_url() . 'admin/role?action=delete&id=' . $r -> id . '&order=' . $sort . '" onclick="return confirm(\'Bạn thực sự muốn xóa\')">Xóa</a></td>
+								<td><a class="btn btn-info"  href="' .$edit_link. $r -> id . '">Sửa</a></td>
+								<td><a class="btn btn-danger" href="' .$delete_link . $r -> id . '&order=' . $sort . '" onclick="return confirm(\'Bạn thực sự muốn xóa\')">Xóa</a></td>
 								</tr>';
 							}
 						}

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+	<title>Changs password</title>
+</head>
+<body>
+	<div id="main">
+		<div class="box">
+			<h3>Đổi Mật Khẩu</h3>
+		
+		<form action="" class="submitForm" method="post">
+			<p class="required">
+				<span>Mật Khẩu Mới</span>
+				<input class="text" data-val="true" data-val-length="Mật khẩu mới phải dài từ 6 đến 30 ký tự." data-val-length-max="30" data-val-length-min="6" data-val-required="Mật khẩu mới là bắt buộc." id="New" name="New" type="password">
+			</p>
+			<p class="required">
+				<span>Xác Nhận Mật Khẩu</span>
+				<input class="text" data-val="true" data-val-equalto="'Xác nhận mật khẩu mới' và 'Mật khẩu mới' không giống nhau." data-val-equalto-other="*.New" data-val-length="Xác nhận mật khẩu mới phải dài từ 6 đến 30 ký tự." data-val-length-max="30" data-val-length-min="6" data-val-required="Xác nhận mật khẩu mới là bắt buộc." id="ConfirmNew" name="ConfirmNew" type="password">
+			</p>
+			<p class="required">
+				<span>Email</span>
+				<input class="text" data-val="true" data-val-length="Email Không Đúng." id="Email" name="Email" type="email">
+			</p>
+			<p class="buttonSet">
+            <button type="submit" class="buttons submitButton">Cập nhật</button>
+            <a class="buttons cancelButtons" href="#">Bỏ qua</a>
+        </p>
+		</form>
+		</div>
+	</div>
+</body>
+</html>

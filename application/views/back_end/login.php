@@ -103,7 +103,7 @@ body {
 
 			<!-- remember me -->
 			<label class="checkbox">
-				<input type="checkbox" value="remember_me" name="remember_me" id="remember_me">Remember me
+				<input type="checkbox" value="remember_me" name="remember_me" id="remember_me">Ghi nhớ đăng nhập
 			</label>
             <span class="error"><?php if(isset($error_msg)) {echo $error_msg;} ?></span>
 

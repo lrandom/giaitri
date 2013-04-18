@@ -85,6 +85,7 @@ $CI = &get_instance();
 				  Thêm chức năng mới vào hệ thống
 				</legend>
 				<form class="form-horizontal" id="form-add-app" method="post">
+					<input type="hidden" value="<?php echo $token ?>" name="token" id="token">
 					<div class="control-group">
 						<label class="control-label" for="txtName">Tên chức năng</label>
 						<div class="controls">

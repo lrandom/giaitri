@@ -18,25 +18,25 @@ class Role extends CI_Controller {
 			$action = $this -> input -> get('action');
 			switch ($action) {
 				case 'delete':
-					$id = intval($this -> input -> get('id'));
-					if ($id) {
-						if ($id != LOWEST_ROLE_ID && $id != HIGHEST_ROLE_ID) {
-							$this -> load -> model('User_model');
-							$this -> User_model -> remove_user(array('role_id' => $id));
-							$this -> load -> model('Perm_model');
-							$this -> Perm_model -> remove_perm(array('role_id' => $id));
-							$this -> Role_model -> remove_role_by_id($id);
-							$data['alert_state'] = ALERT_STATE_SUCCESS;
-							$data['alert_msg'] = DEL_SUCCESS_MSG;
-						} else {
-							$data['alert_state'] = ALERT_STATE_INFO;
-							$data['alert_msg'] = BASE_USER_MSG_WARRNING;
-						}
+				$id = intval($this -> input -> get('id'));
+				if ($id) {
+					if ($id != LOWEST_ROLE_ID && $id != HIGHEST_ROLE_ID) {
+						$this -> load -> model('User_model');
+						$this -> User_model -> remove_user(array('role_id' => $id));
+						$this -> load -> model('Perm_model');
+						$this -> Perm_model -> remove_perm(array('role_id' => $id));
+						$this -> Role_model -> remove_role_by_id($id);
+						$data['alert_state'] = ALERT_STATE_SUCCESS;
+						$data['alert_msg'] = DEL_SUCCESS_MSG;
+					} else {
+						$data['alert_state'] = ALERT_STATE_INFO;
+						$data['alert_msg'] = BASE_USER_MSG_WARRNING;
 					}
-					break;
+				}
+				break;
 
 				default :
-					break;
+				break;
 			}
 		}
 
@@ -44,15 +44,15 @@ class Role extends CI_Controller {
 			$show = $this -> input -> get('show');
 			switch ($show) {
 				case 'actived' :
-					$where['state'] = ACTIVED_STATE;
-					break;
+				$where['state'] = ACTIVED_STATE;
+				break;
 
 				case 'disabled' :
-					$where['state'] = DISABLED_STATE;
-					break;
+				$where['state'] = DISABLED_STATE;
+				break;
 
 				default :
-					break;
+				break;
 			}
 		}
 
@@ -61,14 +61,14 @@ class Role extends CI_Controller {
 			$q = $this -> input -> get('q');
 			switch ($key_q) {
 				case 'id' :
-					$where['id'] = $q;
-					break;
+				$where['id'] = $q;
+				break;
 
 				case 'name' :
-					$like['name'] = $q;
-					break;
+				$like['name'] = $q;
+				break;
 				default :
-					break;
+				break;
 			}
 		}
 
@@ -89,25 +89,33 @@ class Role extends CI_Controller {
 		$this -> pagination -> initialize($config);
 
 		$data['page_link'] = $this -> pagination -> create_links();
-        $data['change_permission_link']=base_url().'admin/perm/index/';
+		$data['change_permission_link']=base_url().'admin/perm/index/';
 		//end pagination
 
 		$data['add_link'] = base_url() . "admin/role/add";
+		$data['edit_link']= base_url() . 'admin/role/edit/';
+		$data['delete_link']= base_url() . 'admin/role?action=delete&id=';
 		$data['title'] = "Vai trò";
 		$this -> load -> view('back_end/main_role', $data);
 	}
 
 	function add() {
 		$data['title'] = "Thêm";
-		if (isset($_POST['txtRole'])) {
-			$txtRole = strval($this -> input -> post('txtRole'));
-			$this -> load -> model('Role_model');
-			$data_array = array('name' => $txtRole, 'last_update' => date('Y-m-d H:i:s', time()), 'state' => 1);
-			$this -> Role_model -> insert_role($data_array);
-			$data['alert_state'] = 'success';
-			$data['alert_msg'] = ADD_SUCCESS_MSG;
-
-		}
+		if (isset($_POST['txtRole']) && isset($_POST['token'])) {
+			if(isset($_SESSION['token']) && ($_SESSION['token']==$this->input->post('token'))){
+				$txtRole = strval($this -> input -> post('txtRole'));
+				$this -> load -> model('Role_model');
+				$data_array = array('name' => $txtRole, 'last_update' => date('Y-m-d H:i:s', time()), 'state' => 1);
+				$this -> Role_model -> insert_role($data_array);
+				$data['alert_state'] = 'success';
+				$data['alert_msg'] = ADD_SUCCESS_MSG;
+			}//end if
+		}//end if
+        //end data
+		$data['back_link']=base_url().'admin/role';
+		$this->load->library('ultils');
+		$data['token']=$this->ultils->_generate_unqid_token();
+		$_SESSION['token']=$data['token'];
 		$this -> load -> view('back_end/form/frmAddRole', $data);
 	}
 

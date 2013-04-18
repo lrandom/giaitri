@@ -11,7 +11,7 @@
 					 $CI =& get_instance();
 				     $CI->load->view('back_end/includes/user_box');
 					?>
-					
+			
 					<ul class="nav">
 						<li class="active dropdown">
 							<a href="<?php echo base_url() ?>article" >Bài đăng <span class="badge badge-info">8</span></a>
@@ -19,7 +19,7 @@
 						</li>
 
 						<li class="dropdown">
-							<a href="<?php echo base_url() ?>admin/category">Chuyên mục</a>
+							<a href="<?php echo base_url() ?>category">Chuyên mục</a>
 						</li>
 
 						<li class="dropdown">

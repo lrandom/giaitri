@@ -49,7 +49,7 @@ class User_model extends CI_Model {
 	}
 
 	function get_user_by_id($id) {
-		$select = '*';
+		$select = '*,users.id as id';
 		$array_where = array('users.id' => $id);
 		return $this -> get_user($select, $array_where,array(), 0, 1, array());
 	}
@@ -57,13 +57,11 @@ class User_model extends CI_Model {
 	function get_user_by_oau_id($id, $first, $offset) {
 		$select = '*';
 		$array_where = array('oau_id' => $id);
-		$array_like = array();
-		$order_by = array();
-		return $this -> get_user($select, $array_where, $array_like, $first, $offset, $order_by);
+		return $this -> get_user($select, $array_where, array(), $first, $offset, array());
 	}
 
 	function get_user_by_user_name($user_name, $first, $offset) {
-		$select = '*';
+		$select = '*,users.id as id';
 		$array_where = array();
 		$array_like = array('user_name' => $user_name);
 		$order_by = array();
@@ -71,13 +69,19 @@ class User_model extends CI_Model {
 	}
 
 	function get_user_by_username_and_password($username,$password){
-		return $this->get_user('*',array('user_name'=>$username,'pass'=>$password),array(),0,1,array());
+		return $this->get_user('*,users.id as id',array('user_name'=>$username,'pass'=>$password),array(),0,1,array());
 	}
 
 	function insert_user($data_array) {
 		$this -> db -> insert('users', $data_array);
 		return $this -> db -> insert_id();
 	}
+
+	function insert_users_in_roles($data_array){
+		$this->db->insert('users_in_roles',$data_array);
+		return $this->db->insert_id();
+	}
+
 
 	function remove_user($arr_where) {
 		$this -> db -> where($arr_where);
@@ -90,7 +94,8 @@ class User_model extends CI_Model {
 	}
 
 	function remove_user_in_roles_by_id($id){
-		$array_where=array('role_id'=>$id);
+		$array_where=array('user_id'=>$id);
+		$this -> db -> where($array_where);
 		$this-> db ->delete('users_in_roles');
 	}
 
@@ -98,6 +103,10 @@ class User_model extends CI_Model {
 	function update_user($data_array, $array_where) {
 		$this -> db -> where($array_where);
 		$this -> db -> update('users', $data_array);
+	}
+
+	function update_user_by_id($id,$data_array){
+		$this->update_user($data_array,array('users.id'=>$id));
 	}
 }
 ?>
